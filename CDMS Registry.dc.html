@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#EEECF4;color:#20223A;-webkit-font-smoothing:antialiased}
+mark{background:#F6E39A;color:#5A4300;border-radius:2px;padding:0 1px}
+a{color:#5A4BD1;text-decoration:none}
+a:hover{color:#1C1566;text-decoration:underline}
+button{font-family:inherit;color:inherit}
+input,select,textarea{font-family:inherit}
+*:focus-visible{outline:2px solid #5A4BD1;outline-offset:1px}
+::selection{background:#DEDAF6}
+</style>
+</helmet>
+<div style="display:flex;flex-direction:column;height:100vh;overflow:hidden">
+  <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;height:66px;background:#fff;flex:none;position:relative;z-index:5">
+    <div style="display:flex;align-items:center;gap:16px">
+      <img src="assets/nphies-logo.png" alt="nphies" style="height:36px;width:auto;display:block">
+      <span style="width:1px;height:32px;background:#E4E1EC;flex:none"></span>
+      <span style="font-weight:700;font-size:14.5px;color:#1C1566;letter-spacing:.1px">Clinical Data Management Solution</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:11px">
+      <span style="font-size:10.5px;color:#9A96AE;text-transform:uppercase;letter-spacing:.9px">Role</span>
+      <div style="display:flex;background:#F1F0F7;border:1px solid #E7E4F0;border-radius:9px;padding:3px;gap:2px">
+        <button onClick="{{ setViewer }}" style="{{ viewerBtnStyle }}">Viewer</button>
+        <button onClick="{{ setAdmin }}" style="{{ adminBtnStyle }}">Admin</button>
+      </div>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:-2px;height:3px;background:linear-gradient(90deg,#2BC4E8,#4C79E6,#8A6AD4,#D268A6)"></div>
+  </header>
+
+  <div style="display:flex;flex:1;min-height:0">
+    <nav style="width:216px;flex:none;background:linear-gradient(180deg,#1E1666 0%,#2A1F7E 100%);color:#C9C4E6;padding:16px 11px;display:flex;flex-direction:column;gap:3px;overflow:auto">
+      <div style="display:flex;align-items:center;gap:10px;padding:2px 8px 16px">
+        <img src="assets/nphies-ring.png" alt="" style="width:27px;height:27px;display:block">
+        <span style="font-weight:700;color:#fff;font-size:16px;letter-spacing:.5px">CDMS</span>
+      </div>
+      <div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#8A83C0;padding:4px 11px 8px">Registry</div>
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+        <button onClick="{{ n.onClick }}" style="{{ n.style }}">
+          <span>{{ n.label }}</span>
+          <span style="{{ n.countStyle }}">{{ n.count }}</span>
+        </button>
+      </sc-for>
+    </nav>
+
+    <main ref="{{ setMainRef }}" style="flex:1;min-width:0;overflow:auto;background:#EEECF4;position:relative">
+
+      <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#7A8A8E;font-size:14px">Loading registry…</div>
+      </sc-if>
+
+      <sc-if value="{{ ready }}">
+      <div>
+
+        <!-- ===================== HOME ===================== -->
+        <sc-if value="{{ viewHome }}">
+          <div style="max-width:1120px;margin:0 auto;padding:30px 30px 70px">
+            <div style="background:#fff;border:1px solid #E4E1EF;border-radius:16px;padding:30px 32px;position:relative;overflow:hidden;margin-bottom:22px">
+              <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#2BC4E8,#4C79E6,#8A6AD4,#D268A6)"></div>
+              <div style="margin-bottom:13px">
+                <img src="assets/nphies-ring.png" alt="" style="width:30px;height:30px;display:block">
+              </div>
+              <h1 style="margin:0 0 9px;font-size:28px;font-weight:700;color:#1C1566;letter-spacing:-.5px">Clinical Data Management Solution</h1>
+              <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#5A5872;max-width:600px">One dictionary for every clinical data element — search any element and see exactly where it lives across all 17 locations, with its local name, full path, optionality and terminology binding.</p>
+              <div style="position:relative;max-width:620px">
+                <input ref="{{ setSearchRef }}" value="{{ query }}" onChange="{{ onHomeSearch }}" placeholder="Search any element, path or value set…" style="width:100%;height:52px;padding:0 46px;border:1.5px solid #D6D2E4;border-radius:12px;background:#FBFAFE;font-size:15px;color:#20223A">
+                <span style="position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#A7A2BE;font-size:19px;pointer-events:none">⌕</span>
+                <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:11px;color:#A7A2BE;border:1px solid #E1DEEC;border-radius:5px;padding:2px 7px;pointer-events:none;font-family:'IBM Plex Mono',monospace">/</span>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:13px;align-items:center">
+                <span style="font-size:11.5px;color:#8A86A0">Try:</span>
+                <sc-for list="{{ suggestChips }}" as="s" hint-placeholder-count="5"><button onClick="{{ s.onClick }}" style="{{ suggestChipStyle }}">{{ s.label }}</button></sc-for>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px">
+              <sc-for list="{{ homeStats }}" as="st" hint-placeholder-count="5">
+                <div style="background:#fff;border:1px solid #E4E1EF;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:28px;font-weight:700;color:#1C1566;line-height:1">{{ st.value }}</div>
+                  <div style="font-size:12px;color:#8A86A0;margin-top:6px">{{ st.label }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#9A96AE;margin-bottom:11px">Explore</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:26px">
+              <sc-for list="{{ homeCards }}" as="c" hint-placeholder-count="4">
+                <button onClick="{{ c.onClick }}" style="{{ homeCardStyle }}" style-hover="{{ cardHover }}">
+                  <div style="{{ c.barStyle }}"></div>
+                  <div style="font-size:15.5px;font-weight:600;color:#1C1566;margin-bottom:5px">{{ c.title }}</div>
+                  <div style="font-size:12.5px;color:#6E6A82;line-height:1.5">{{ c.desc }}</div>
+                </button>
+              </sc-for>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px">
+              <div style="background:#fff;border:1px solid #E4E1EF;border-radius:13px;padding:18px 20px">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#9A96AE;margin-bottom:14px">Coverage by standard</div>
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <sc-for list="{{ standardsCoverage }}" as="sd" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:center;gap:12px">
+                      <span style="{{ sd.style }}">{{ sd.label }}</span>
+                      <div style="flex:1;font-size:12.5px;color:#5A5872">{{ sd.ifaces }} locations</div>
+                      <div style="font-size:12.5px;color:#8A86A0">{{ sd.maps }} mappings</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="background:#fff;border:1px solid #E4E1EF;border-radius:13px;padding:18px 20px">
+                <div style="font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#9A96AE;margin-bottom:8px">Domains</div>
+                <div style="display:flex;flex-direction:column">
+                  <sc-for list="{{ homeDomains }}" as="dm" hint-placeholder-count="6">
+                    <button onClick="{{ dm.onClick }}" style="display:flex;align-items:center;justify-content:space-between;gap:10px;border:none;background:none;cursor:pointer;text-align:left;padding:9px 0;border-bottom:1px solid #EEECF6;font-size:13px;color:#1C1566;font-weight:500">
+                      <span>{{ dm.name }}</span>
+                      <span style="font-size:11.5px;color:#8A86A0;background:#EEECF6;padding:2px 9px;border-radius:20px;font-weight:600">{{ dm.count }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ===================== SEARCH ===================== -->
+        <sc-if value="{{ viewSearch }}">
+          <div style="max-width:1180px;margin:0 auto;padding:26px 30px 70px">
+            <div style="margin-bottom:16px">
+              <h1 style="margin:0 0 4px;font-size:22px;font-weight:700;color:#1C1566;letter-spacing:-.2px">Data Elements</h1>
+              <p style="margin:0;font-size:13px;color:#5A6B6F">Search any element and see exactly where it lives across all 17 locations.</p>
+            </div>
+
+            <div style="position:relative;margin-bottom:14px">
+              <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Search name, path, local name, value set…   e.g.  PV1-19   ·   encompassingEncounter   ·   visit" style="width:100%;height:52px;padding:0 46px;border:1.5px solid #D6D2E4;border-radius:11px;background:#fff;font-size:15px;color:#1B2A2F;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+              <span style="position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#9AA6A6;font-size:19px;pointer-events:none">⌕</span>
+              <sc-if value="{{ query }}"><button onClick="{{ clearQuery }}" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);border:none;background:#EEECF4;border-radius:6px;width:28px;height:28px;cursor:pointer;color:#5A6B6F;font-size:13px">✕</button></sc-if>
+            </div>
+
+            <div style="display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:14px">
+              <select value="{{ filters.domain }}" onChange="{{ onFD }}" style="{{ selStyle }}">
+                <option value="">All domains</option>
+                <sc-for list="{{ domainOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for>
+              </select>
+              <select value="{{ filters.interface }}" onChange="{{ onFI }}" style="{{ selStyle }}">
+                <option value="">All locations</option>
+                <sc-for list="{{ interfaceOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.label }}</option></sc-for>
+              </select>
+              <select value="{{ filters.standard }}" onChange="{{ onFS }}" style="{{ selStyle }}">
+                <option value="">All standards</option>
+                <sc-for list="{{ standardOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.label }}</option></sc-for>
+              </select>
+              <select value="{{ filters.optionality }}" onChange="{{ onFO }}" style="{{ selStyle }}">
+                <option value="">All optionality</option>
+                <sc-for list="{{ optBucketOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.label }}</option></sc-for>
+              </select>
+              <button onClick="{{ toggleBound }}" style="{{ boundBtnStyle }}">Terminology-bound</button>
+              <sc-if value="{{ hasFilters }}"><button onClick="{{ clearFilters }}" style="height:36px;padding:0 12px;border:1px solid #D6D2E4;border-radius:8px;background:#fff;font-size:12.5px;color:#5A6B6F;cursor:pointer">Clear filters</button></sc-if>
+              <div style="flex:1"></div>
+              <sc-if value="{{ isAdmin }}"><button onClick="{{ startAddEl }}" style="{{ addElBtnStyle }}">+ New element</button></sc-if>
+            </div>
+
+            <sc-if value="{{ addingEl }}">
+              <div style="background:#fff;border:1px solid #E4E1EF;border-left:3px solid #5A4BD1;border-radius:11px;padding:16px 18px;margin-bottom:16px">
+                <div style="font-size:13px;font-weight:600;color:#1C1566;margin-bottom:12px">Add a new data element</div>
+                <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end">
+                  <label style="display:flex;flex-direction:column;gap:5px;flex:1;min-width:240px"><span style="{{ fieldLabelStyle }}">Canonical name</span><input value="{{ neName }}" onChange="{{ onNeName }}" placeholder="e.g. Allergy Substance Code" style="{{ inputStyle }}"></label>
+                  <label style="display:flex;flex-direction:column;gap:5px"><span style="{{ fieldLabelStyle }}">Domain</span><select value="{{ neDomain }}" onChange="{{ onNeDomain }}" style="{{ selStyle }}"><sc-for list="{{ domainOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label>
+                  <label style="display:flex;flex-direction:column;gap:5px"><span style="{{ fieldLabelStyle }}">Data type</span><select value="{{ neType }}" onChange="{{ onNeType }}" style="{{ selStyle }}"><sc-for list="{{ typeOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o }}">{{ o }}</option></sc-for></select></label>
+                  <button onClick="{{ submitAddEl }}" style="{{ primaryBtnStyle }}">Create</button>
+                  <button onClick="{{ cancelAddEl }}" style="height:38px;padding:0 14px;border:1px solid #D6D2E4;border-radius:8px;background:#fff;font-size:13px;color:#5A6B6F;cursor:pointer">Cancel</button>
+                </div>
+              </div>
+            </sc-if>
+
+            <div style="font-size:12px;color:#6E7C80;margin-bottom:11px"><b style="color:#1C1566">{{ resultCount }}</b> of {{ totalCount }} elements</div>
+
+            <sc-if value="{{ hasResults }}">
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <sc-for list="{{ results }}" as="r" hint-placeholder-count="6">
+                  <button onClick="{{ r.onOpen }}" style="{{ cardStyle }}" style-hover="{{ cardHover }}">
+                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6E6795;background:#EDEBF7;padding:2px 7px;border-radius:5px">{{ r.id }}</span>
+                      <span style="font-size:15.5px;font-weight:600;color:#1C1566">{{ r.nameNode }}</span>
+                      <sc-if value="{{ r.modified }}"><span style="font-size:10px;color:#B4470F;background:#F8E7DC;padding:2px 7px;border-radius:5px;font-weight:600">● modified</span></sc-if>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px">
+                      <span style="background:#ECEAF7;color:#4A3F97;padding:3px 9px;border-radius:20px;font-weight:500">{{ r.domainName }}</span>
+                      <span style="color:#5A6B6F">{{ r.dataType }}</span>
+                      <sc-if value="{{ r.bound }}"><span style="display:inline-flex;align-items:center;gap:5px;background:#EAE7F7;color:#5A4BD1;padding:3px 9px;border-radius:20px;font-weight:500">◈ {{ r.boundVsName }}</span></sc-if>
+                      <span style="{{ r.statusStyle }}">{{ r.status }}</span>
+                      <span style="color:#8A949A">·</span>
+                      <span style="color:#5A6B6F">{{ r.mappingCount }} mappings</span>
+                    </div>
+                    <sc-if value="{{ r.matchNode }}"><div style="font-size:11.5px;color:#6E7C80;font-family:'IBM Plex Mono',monospace;background:#F3F1FB;border-radius:6px;padding:6px 9px;display:inline-block;align-self:flex-start">{{ r.matchNode }}</div></sc-if>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ noResults }}">
+              <div style="text-align:center;padding:60px 20px;color:#7A8A8E">
+                <div style="font-size:26px;margin-bottom:8px;opacity:.5">⌕</div>
+                <div style="font-size:15px;font-weight:600;color:#5A6B6F;margin-bottom:5px">No elements match</div>
+                <div style="font-size:13px;margin-bottom:16px">Try a different term, or clear the active filters.</div>
+                <button onClick="{{ clearAll }}" style="{{ primaryBtnStyle }}">Clear search &amp; filters</button>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ===================== DETAIL ===================== -->
+        <sc-if value="{{ viewDetail }}">
+          <div style="max-width:1220px;margin:0 auto;padding:20px 30px 70px">
+            <button onClick="{{ backToList }}" style="border:none;background:none;color:#5A4BD1;font-size:13px;font-weight:500;cursor:pointer;padding:4px 0;margin-bottom:12px">← Back to elements</button>
+
+            <div style="background:#fff;border:1px solid #E4E1EF;border-radius:13px;padding:20px 22px;margin-bottom:22px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
+                <div style="min-width:0">
+                  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6E6795;background:#EDEBF7;padding:2px 8px;border-radius:5px">{{ sel.id }}</span>
+                    <span style="background:#ECEAF7;color:#4A3F97;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500">{{ sel.domainName }}</span>
+                    <sc-if value="{{ sel.modified }}"><span style="font-size:10px;color:#B4470F;background:#F8E7DC;padding:2px 8px;border-radius:5px;font-weight:600">● modified</span></sc-if>
+                  </div>
+                  <h1 style="margin:0;font-size:23px;font-weight:700;color:#1C1566;letter-spacing:-.2px">{{ sel.name }}</h1>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+                  <span style="{{ fieldLabelStyle }}">Status</span>
+                  <sc-if value="{{ isAdmin }}"><select value="{{ sel.status }}" onChange="{{ sel.onStatusChange }}" style="{{ selStyle }}"><sc-for list="{{ statusOptions }}" as="o" hint-placeholder-count="4"><option value="{{ o }}">{{ o }}</option></sc-for></select></sc-if>
+                  <sc-if value="{{ notAdmin }}"><span style="{{ sel.statusStyle }}">{{ sel.status }}</span></sc-if>
+                </div>
+              </div>
+
+              <div style="margin-top:14px">
+                <sc-if value="{{ sel.editingDef }}">
+                  <textarea value="{{ sel.defDraft }}" onChange="{{ onDefDraft }}" style="width:100%;min-height:74px;border:1.5px solid #5A4BD1;border-radius:9px;padding:10px 12px;font-size:14px;line-height:1.55;color:#2B3A3F;resize:vertical"></textarea>
+                  <div style="display:flex;gap:8px;margin-top:8px"><button onClick="{{ onSaveDef }}" style="{{ primaryBtnStyle }}">Save</button><button onClick="{{ onCancelDef }}" style="height:38px;padding:0 14px;border:1px solid #D6D2E4;border-radius:8px;background:#fff;font-size:13px;color:#5A6B6F;cursor:pointer">Cancel</button></div>
+                </sc-if>
+                <sc-if value="{{ sel.notEditingDef }}">
+                  <p style="margin:0;font-size:14.5px;line-height:1.6;color:#3A4A4F">{{ sel.definition }}</p>
+                  <sc-if value="{{ isAdmin }}"><button onClick="{{ onEditDef }}" style="border:none;background:none;color:#5A4BD1;font-size:12.5px;cursor:pointer;padding:6px 0 0">✎ Edit definition</button></sc-if>
+                </sc-if>
+              </div>
+
+              <div style="display:flex;flex-wrap:wrap;gap:26px;margin-top:16px;padding-top:15px;border-top:1px solid #EEECF4">
+                <div><div style="{{ fieldLabelStyle }}">Canonical data type</div><div style="font-size:13.5px;color:#2B3A3F;margin-top:3px">{{ sel.dataType }}</div></div>
+                <div><div style="{{ fieldLabelStyle }}">Created by</div><div style="font-size:13.5px;color:#2B3A3F;margin-top:3px">{{ sel.createdBy }} <span style="color:#9A96AE">· {{ sel.createdAt }}</span></div></div>
+                <div><div style="{{ fieldLabelStyle }}">Last modified by</div><div style="font-size:13.5px;color:#2B3A3F;margin-top:3px">{{ sel.updatedBy }} <span style="color:#9A96AE">· {{ sel.updatedAt }}</span></div></div>
+                <div><div style="{{ fieldLabelStyle }}">Terminology binding</div>
+                  <sc-if value="{{ sel.bound }}"><div style="margin-top:3px"><a href="#" onClick="{{ sel.onVsLink }}" style="font-size:13.5px;font-weight:500">◈ {{ sel.vsName }}</a></div></sc-if>
+                  <sc-if value="{{ sel.notBound }}"><div style="font-size:13.5px;color:#8A949A;margin-top:3px">Not bound</div></sc-if>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:11px">
+              <h2 style="margin:0;font-size:16px;font-weight:700;color:#1C1566">Mappings</h2>
+              <span style="font-size:12px;color:#7A8A8E">present in {{ sel.presentCount }} of 17 locations</span>
+            </div>
+
+            <div style="background:#fff;border:1px solid #E4E1EF;border-radius:11px;overflow:auto">
+              <table style="border-collapse:collapse;width:100%;min-width:1080px;font-size:12.5px">
+                <thead>
+                  <tr style="background:#F3F1FB;text-align:left">
+                    <th style="{{ thStyle }}">Interface</th>
+                    <th style="{{ thStyle }}">Local Name</th>
+                    <th style="{{ thStyle }}">Parent</th>
+                    <th style="{{ thStyle }}">Full Path</th>
+                    <th style="{{ thStyle }}">Opt.</th>
+                    <th style="{{ thStyle }}">Card.</th>
+                    <th style="{{ thStyle }}">Data Type</th>
+                    <th style="{{ thStyle }}">Value Set</th>
+                    <th style="{{ thStyle }}">Source</th>
+                    <th style="{{ thStyle }}">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <sc-for list="{{ sel.present }}" as="m" hint-placeholder-count="4">
+                    <tr ref="{{ m.setRef }}" style="{{ m.rowStyle }}">
+                      <td style="{{ tdStyle }}"><span style="display:inline-flex;flex-direction:column;gap:3px"><span style="{{ m.stdStyle }}">{{ m.stdLabel }}</span><span style="font-weight:600;color:#2B3A3F">{{ m.ifName }}</span></span></td>
+                      <td style="{{ tdStyle }}">{{ m.localName }}</td>
+                      <td style="{{ tdStyle }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5A6B6F">{{ m.parent }}</span></td>
+                      <td style="{{ tdStyle }}">
+                        <div style="display:flex;align-items:flex-start;gap:6px;min-width:260px;max-width:380px">
+                          <code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#264A52;background:#F1EFFA;padding:3px 6px;border-radius:5px;word-break:break-word;line-height:1.5;flex:1">{{ m.fullPath }}</code>
+                          <button onClick="{{ m.onCopy }}" title="Copy path" style="flex:none;border:1px solid #DEDAEC;background:#fff;border-radius:5px;width:24px;height:24px;cursor:pointer;color:#7A8A8E;font-size:11px">⧉</button>
+                        </div>
+                      </td>
+                      <td style="{{ tdStyle }}">
+                        <sc-if value="{{ notAdmin }}"><span style="{{ m.optStyle }}">{{ m.optCode }}</span></sc-if>
+                        <sc-if value="{{ isAdmin }}"><select value="{{ m.optCode }}" onChange="{{ m.onOptChange }}" style="{{ optSelStyle }}"><sc-for list="{{ m.optOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o }}">{{ o }}</option></sc-for></select></sc-if>
+                      </td>
+                      <td style="{{ tdStyle }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5A6B6F">{{ m.cardinality }}</span></td>
+                      <td style="{{ tdStyle }}">{{ m.dataType }}</td>
+                      <td style="{{ tdStyle }}">{{ m.vsName }}</td>
+                      <td style="{{ tdStyle }}"><span style="color:#7A8A8E;font-size:11.5px">{{ m.source }}</span></td>
+                      <td style="{{ tdStyle }}"><span style="color:#7A8A8E;font-size:11.5px">{{ m.notes }}</span></td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:14px">
+              <div style="flex:1;min-width:260px;background:#F1EFFA;border:1px dashed #D8D2EC;border-radius:10px;padding:12px 14px">
+                <div style="font-size:11px;font-weight:600;color:#8A6D3B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Pending — Database team</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px">
+                  <sc-for list="{{ sel.pending }}" as="p" hint-placeholder-count="2"><span style="font-size:12.5px;color:#7A6B4F;background:#EFE9DC;padding:3px 9px;border-radius:6px">{{ p.name }}</span></sc-for>
+                </div>
+              </div>
+              <sc-if value="{{ sel.hasNotPresent }}">
+                <div style="flex:2;min-width:280px;background:#EEECF6;border:1px solid #E4E1EF;border-radius:10px;padding:12px 14px">
+                  <div style="font-size:11px;font-weight:600;color:#9AA6A6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Not present in</div>
+                  <div style="font-size:12.5px;color:#8A949A;line-height:1.6">{{ sel.notPresentNames }}</div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ===================== MATRIX ===================== -->
+        <sc-if value="{{ viewMatrix }}">
+          <div style="padding:24px 26px 60px">
+            <div style="margin-bottom:12px">
+              <h1 style="margin:0 0 4px;font-size:22px;font-weight:700;color:#1C1566;letter-spacing:-.2px">Coverage Matrix</h1>
+              <p style="margin:0;font-size:13px;color:#5A6B6F">Every element × every location. Each cell shows the path and its optionality — click any cell to open the mapping.</p>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:14px;font-size:11.5px">
+              <sc-for list="{{ legend }}" as="l" hint-placeholder-count="5"><span style="display:inline-flex;align-items:center;gap:6px;color:#5A6B6F"><span style="{{ l.dot }}"></span>{{ l.label }}</span></sc-for>
+            </div>
+            <div style="background:#fff;border:1px solid #E4E1EF;border-radius:11px;overflow:auto;max-height:calc(100vh - 220px)">
+              <table style="border-collapse:separate;border-spacing:0;font-size:11px">
+                <thead>
+                  <tr>
+                    <th style="position:sticky;left:0;top:0;z-index:3;background:#1C1566;color:#EAF2F1;padding:10px 12px;text-align:left;font-size:11px;font-weight:600;min-width:190px">Element</th>
+                    <sc-for list="{{ matrixCols }}" as="c" hint-placeholder-count="8">
+                      <th style="position:sticky;top:0;z-index:2;background:#3B2E8F;color:#EAF2F1;padding:8px 9px;text-align:left;font-weight:600;min-width:150px;vertical-align:bottom">
+                        <span style="{{ c.stdStyle }}">{{ c.stdLabel }}</span>
+                        <div style="margin-top:5px;font-size:11px;line-height:1.25">{{ c.name }}</div>
+                      </th>
+                    </sc-for>
+                  </tr>
+                </thead>
+                <tbody>
+                  <sc-for list="{{ matrixRows }}" as="row" hint-placeholder-count="8">
+                    <tr>
+                      <th style="{{ row.headStyle }}"><button onClick="{{ row.onOpen }}" style="border:none;background:none;color:#1C1566;font-weight:600;font-size:11.5px;text-align:left;cursor:pointer;padding:0;line-height:1.3">{{ row.name }}</button></th>
+                      <sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="8">
+                        <td style="{{ cell.tdStyle }}">
+                          <sc-if value="{{ cell.has }}">
+                            <button onClick="{{ cell.onClick }}" title="{{ cell.path }}" style="border:none;background:none;text-align:left;cursor:pointer;padding:0;display:flex;flex-direction:column;gap:4px;width:100%">
+                              <span style="{{ cell.optStyle }}">{{ cell.optCode }}</span>
+                              <code style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#5A6B6F;line-height:1.35;word-break:break-all">{{ cell.pathShort }}</code>
+                            </button>
+                          </sc-if>
+                          <sc-if value="{{ cell.pendingOnly }}"><span style="font-size:10px;color:#B69B6A;font-style:italic">pending</span></sc-if>
+                          <sc-if value="{{ cell.blank }}"><span style="color:#D2CDC3">·</span></sc-if>
+                        </td>
+                      </sc-for>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ===================== VALUE SETS ===================== -->
+        <sc-if value="{{ viewValueSets }}">
+          <div style="max-width:1080px;margin:0 auto;padding:26px 30px 70px">
+            <div style="margin-bottom:16px">
+              <h1 style="margin:0 0 4px;font-size:22px;font-weight:700;color:#1C1566;letter-spacing:-.2px">Value Sets</h1>
+              <p style="margin:0;font-size:13px;color:#5A6B6F">Terminology bindings referenced by the registry — with OIDs, binding strength and codes.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ vsRows }}" as="v" hint-placeholder-count="5">
+                <div style="background:#fff;border:1px solid #E4E1EF;border-radius:12px;overflow:hidden">
+                  <button onClick="{{ v.onToggle }}" style="width:100%;border:none;background:none;cursor:pointer;text-align:left;padding:15px 18px;display:flex;align-items:center;gap:14px">
+                    <span style="font-size:15px;color:#9AA6A6;transform:{{ v.chev }};transition:transform .15s;flex:none">▸</span>
+                    <div style="flex:1;min-width:0">
+                      <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:3px">
+                        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6E6795;background:#EDEBF7;padding:2px 7px;border-radius:5px">{{ v.id }}</span>
+                        <span style="font-size:15px;font-weight:600;color:#1C1566">{{ v.name }}</span>
+                        <span style="font-size:12.5px;color:#7A8A8E">{{ v.displayName }}</span>
+                        <sc-if value="{{ v.modified }}"><span style="font-size:10px;color:#B4470F;background:#F8E7DC;padding:2px 7px;border-radius:5px;font-weight:600">● modified</span></sc-if>
+                      </div>
+                      <div style="font-size:12.5px;color:#5A6B6F">{{ v.description }}</div>
+                    </div>
+                    <div style="display:flex;gap:18px;flex:none;text-align:right">
+                      <div><div style="{{ fieldLabelStyle }}">Binding</div><div style="font-size:13px;color:#2B3A3F;font-weight:500;margin-top:2px">{{ v.binding }}</div></div>
+                      <div><div style="{{ fieldLabelStyle }}">Codes</div><div style="font-size:13px;color:#2B3A3F;font-weight:500;margin-top:2px">{{ v.totalLabel }}</div></div>
+                    </div>
+                  </button>
+                  <sc-if value="{{ v.expanded }}">
+                    <div style="padding:4px 18px 18px 44px;border-top:1px solid #EEECF4">
+                      <div style="display:flex;flex-wrap:wrap;gap:22px;margin:14px 0">
+                        <div><div style="{{ fieldLabelStyle }}">Value Set OID</div><code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#264A52;display:block;margin-top:3px">{{ v.vsOid }}</code></div>
+                        <div style="min-width:0"><div style="{{ fieldLabelStyle }}">Code System OID</div><code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#264A52;display:block;margin-top:3px;word-break:break-all">{{ v.csOid }}</code></div>
+                      </div>
+                      <div style="{{ fieldLabelStyle }}">Codes</div>
+                      <div style="border:1px solid #E6E3F1;border-radius:9px;overflow:hidden;margin-top:6px">
+                        <sc-for list="{{ v.codes }}" as="c" hint-placeholder-count="3">
+                          <div style="display:flex;gap:14px;padding:8px 12px;border-bottom:1px solid #EEECF6;align-items:baseline">
+                            <code style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#1C1566;font-weight:500;flex:none;min-width:120px">{{ c.code }}</code>
+                            <span style="font-size:12.5px;color:#3A4A4F;flex:1">{{ c.display }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <sc-if value="{{ v.sampleNote }}"><div style="font-size:11.5px;color:#8A6D3B;margin-top:8px;font-style:italic">{{ v.sampleNote }}</div></sc-if>
+
+                      <sc-if value="{{ isAdmin }}">
+                        <div style="display:flex;gap:8px;align-items:flex-end;margin-top:12px;flex-wrap:wrap">
+                          <label style="display:flex;flex-direction:column;gap:4px"><span style="{{ fieldLabelStyle }}">New code</span><input value="{{ ncCode }}" onChange="{{ onNcCode }}" placeholder="code" style="{{ inputStyle }}"></label>
+                          <label style="display:flex;flex-direction:column;gap:4px;flex:1;min-width:200px"><span style="{{ fieldLabelStyle }}">Display</span><input value="{{ ncDisplay }}" onChange="{{ onNcDisplay }}" placeholder="display text" style="{{ inputStyle }}"></label>
+                          <button onClick="{{ v.onAddCode }}" style="{{ primaryBtnStyle }}">Add code</button>
+                        </div>
+                      </sc-if>
+
+                      <div style="margin-top:16px;padding-top:12px;border-top:1px solid #EEECF4">
+                        <div style="{{ fieldLabelStyle }}">Used by elements ({{ v.usedByCount }})</div>
+                        <div style="font-size:12.5px;color:#3A4A4F;line-height:1.6;margin-top:4px">{{ v.usedByNames }}</div>
+                      </div>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ===================== INTERFACES ===================== -->
+        <sc-if value="{{ viewInterfaces }}">
+          <div style="max-width:1120px;margin:0 auto;padding:26px 30px 70px">
+            <div style="margin-bottom:16px">
+              <h1 style="margin:0 0 4px;font-size:22px;font-weight:700;color:#1C1566;letter-spacing:-.2px">Locations</h1>
+              <p style="margin:0;font-size:13px;color:#5A6B6F">The 17 locations the registry maps across — HL7 v2, CDA and FHIR interfaces plus database tables. Click one to see its elements.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px">
+              <sc-for list="{{ ifaceRows }}" as="i" hint-placeholder-count="6">
+                <button onClick="{{ i.onFilter }}" style="{{ ifaceCardStyle }}" style-hover="{{ cardHover }}">
+                  <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px">
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6E6795;background:#EDEBF7;padding:2px 7px;border-radius:5px">{{ i.id }}</span>
+                    <span style="{{ i.stdStyle }}">{{ i.stdLabel }}</span>
+                    <div style="flex:1"></div>
+                    <span style="font-size:11.5px;color:#7A8A8E">{{ i.count }} elements</span>
+                  </div>
+                  <div style="font-size:15px;font-weight:600;color:#1C1566;margin-bottom:6px">{{ i.name }}</div>
+                  <div style="font-size:12px;color:#5A6B6F;line-height:1.5;margin-bottom:10px">{{ i.content }}</div>
+                  <div style="display:flex;flex-direction:column;gap:5px;font-size:11.5px">
+                    <div style="display:flex;gap:8px"><span style="color:#9AA6A6;flex:none;min-width:80px">Path syntax</span><code style="font-family:'IBM Plex Mono',monospace;color:#3A4A4F;word-break:break-all">{{ i.pathSyntax }}</code></div>
+                  </div>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+      </div>
+      </sc-if>
+    </main>
+  </div>
+
+  <sc-if value="{{ toast }}">
+    <div style="position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:#1C1566;color:#EAF2F1;padding:10px 20px;border-radius:9px;font-size:13px;font-weight:500;box-shadow:0 6px 22px rgba(0,0,0,.22);z-index:20">{{ toast }}</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#4C79E6&quot;,&quot;options&quot;:[&quot;#5A4BD1&quot;,&quot;#4C79E6&quot;,&quot;#8A6AD4&quot;,&quot;#1C1566&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Appearance&quot;},&quot;defaultRole&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Viewer&quot;,&quot;options&quot;:[&quot;Viewer&quot;,&quot;Admin&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;showMatchNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  mapRowRefs = {};
+  state = {
+    data: null,
+    role: (this.props && this.props.defaultRole) || 'Viewer',
+    view: 'home',
+    query: '',
+    filters: { domain: '', interface: '', standard: '', optionality: '', boundOnly: false },
+    selectedId: null,
+    flashIface: null,
+    toast: '',
+    expandedVs: {},
+    modEls: {}, modMaps: {}, modVs: {},
+    editingDef: false, defDraft: '',
+    addingEl: false, neName: '', neDomain: '', neType: 'Coded', neBound: 'N',
+    ncCode: '', ncDisplay: ''
+  };
+
+  componentDidMount() {
+    import('./cdms-data.js').then(m => {
+      const data = (typeof structuredClone === 'function') ? structuredClone(m.DATA) : JSON.parse(JSON.stringify(m.DATA));
+      this.setState({ data, neDomain: data.domains[0].id });
+    });
+    this._onKey = (e) => {
+      const tag = e.target && e.target.tagName;
+      if (e.key === '/' && tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'SELECT') { e.preventDefault(); if (this.searchRef) this.searchRef.focus(); }
+      else if (e.key === 'Escape' && this.state.query) { this.setState({ query: '' }); }
+    };
+    window.addEventListener('keydown', this._onKey);
+  }
+  componentWillUnmount() { if (this._onKey) window.removeEventListener('keydown', this._onKey); }
+  today() { return '15 Jul 2026'; }
+  bar(c) { return { height: '3px', width: '40px', borderRadius: '3px', background: c, marginBottom: '12px' }; }
+  onHomeSearch(e) { this.setState({ query: e.target.value, view: 'search' }); if (this.mainEl) setTimeout(() => { this.mainEl.scrollTop = 0; }, 0); }
+  applySuggest(term) { this.setState({ query: term, view: 'search' }); if (this.mainEl) setTimeout(() => { this.mainEl.scrollTop = 0; }, 0); }
+  filterByDomain(id) { this.setState({ view: 'search', query: '', filters: { ...this.state.filters, domain: id } }); if (this.mainEl) setTimeout(() => { this.mainEl.scrollTop = 0; }, 0); }
+
+  accent() { return (this.props && this.props.accentColor) || '#5A4BD1'; }
+
+  hi(text, q) {
+    text = String(text == null ? '' : text);
+    if (!q) return text;
+    const lo = text.toLowerCase(), ql = q.toLowerCase();
+    if (!lo.includes(ql)) return text;
+    const parts = []; let from = 0, k = 0;
+    while (true) {
+      const p = lo.indexOf(ql, from);
+      if (p < 0) { parts.push(text.slice(from)); break; }
+      if (p > from) parts.push(text.slice(from, p));
+      parts.push(React.createElement('mark', { key: k++ }, text.slice(p, p + ql.length)));
+      from = p + ql.length;
+    }
+    return React.createElement(React.Fragment, null, ...parts);
+  }
+
+  optKey(code) {
+    const c = (code || '').trim();
+    if (c.includes('/') || c === 'C') return 'orange';
+    if (c === 'R2') return 'blue';
+    if (c === 'M' || c === 'R' || /^M\b/.test(c) || /^R\b/.test(c)) return 'green';
+    if (c === 'O' || /^O\b/.test(c)) return 'amber';
+    if (c === 'I' || c === 'NP') return 'gray';
+    return 'gray';
+  }
+  optPalette() {
+    return {
+      green: { bg: '#E4F0E8', fg: '#1E6B3E', bd: '#C4DECC' },
+      blue: { bg: '#E3ECF7', fg: '#1F5AA6', bd: '#C7D8EE' },
+      amber: { bg: '#F6EEDA', fg: '#8A6410', bd: '#E7D8B4' },
+      gray: { bg: '#EAE8E3', fg: '#7C7C74', bd: '#DAD7D0' },
+      orange: { bg: '#F7E7DB', fg: '#B4470F', bd: '#ECC9B6' }
+    };
+  }
+  chipStyle(code) {
+    const key = this.optKey(code); const p = this.optPalette()[key];
+    const c = (code || '').trim();
+    const struck = key === 'gray' && (c === 'I' || c === 'NP');
+    return { display: 'inline-flex', alignItems: 'center', padding: '2px 8px', borderRadius: '5px', fontSize: '11px', fontWeight: 600, fontFamily: "'IBM Plex Mono',monospace", background: p.bg, color: p.fg, border: '1px solid ' + p.bd, textDecoration: struck ? 'line-through' : 'none', whiteSpace: 'nowrap' };
+  }
+  stdMeta(s) {
+    const map = {
+      'HL7 v2': { bg: '#ECE6F6', fg: '#5B3E9E', label: 'HL7 v2' },
+      'CDA': { bg: '#DCEDED', fg: '#1F6B6B', label: 'CDA' },
+      'FHIR R4': { bg: '#E3ECF7', fg: '#1F5AA6', label: 'FHIR R4' },
+      'Database': { bg: '#E7EAEA', fg: '#4A5A5F', label: 'DB' },
+      'Database / Interface': { bg: '#E7EAEA', fg: '#4A5A5F', label: 'DB' }
+    };
+    return map[s] || map['Database'];
+  }
+  stdStyle(s) { const m = this.stdMeta(s); return { display: 'inline-block', padding: '1px 7px', borderRadius: '4px', fontSize: '10px', fontWeight: 700, letterSpacing: '.3px', background: m.bg, color: m.fg }; }
+  stdLabel(s) { return this.stdMeta(s).label; }
+  statusStyle(s) {
+    const map = {
+      'Draft': { bg: '#EAE8E3', fg: '#6E6E66' },
+      'In Review': { bg: '#F6EEDA', fg: '#8A6410' },
+      'Approved': { bg: '#E4F0E8', fg: '#1E6B3E' },
+      'Deprecated': { bg: '#F5E1E1', fg: '#A33A3A' }
+    };
+    const m = map[s] || map['Draft'];
+    return { display: 'inline-block', padding: '2px 9px', borderRadius: '20px', fontSize: '11px', fontWeight: 600, background: m.bg, color: m.fg, textDecoration: s === 'Deprecated' ? 'line-through' : 'none' };
+  }
+  trunc(s, n) { s = s || ''; return s.length > n ? s.slice(0, n - 1) + '…' : s; }
+
+  // ---- handlers ----
+  onQuery(e) { this.setState({ query: e.target.value }); }
+  clearQuery() { this.setState({ query: '' }); }
+  clearAll() { this.setState({ query: '', filters: { domain: '', interface: '', standard: '', optionality: '', boundOnly: false } }); }
+  setViewer() { this.setState({ role: 'Viewer', editingDef: false, addingEl: false }); }
+  setAdmin() { this.setState({ role: 'Admin' }); }
+  navTo(v) { this.setState({ view: v, selectedId: v === 'detail' ? this.state.selectedId : null }); if (this.mainEl) setTimeout(() => { this.mainEl.scrollTop = 0; }, 0); }
+  onFD(e) { this.setState({ filters: { ...this.state.filters, domain: e.target.value } }); }
+  onFI(e) { this.setState({ filters: { ...this.state.filters, interface: e.target.value } }); }
+  onFS(e) { this.setState({ filters: { ...this.state.filters, standard: e.target.value } }); }
+  onFO(e) { this.setState({ filters: { ...this.state.filters, optionality: e.target.value } }); }
+  toggleBound() { this.setState({ filters: { ...this.state.filters, boundOnly: !this.state.filters.boundOnly } }); }
+  clearFilters() { this.setState({ filters: { domain: '', interface: '', standard: '', optionality: '', boundOnly: false } }); }
+
+  openElement(id, ifId) {
+    this.setState({ view: 'detail', selectedId: id, editingDef: false, flashIface: null });
+    if (ifId) {
+      setTimeout(() => {
+        const el = this.mapRowRefs[ifId], main = this.mainEl;
+        if (el && main) { const r = el.getBoundingClientRect(), mr = main.getBoundingClientRect(); main.scrollTop += (r.top - mr.top) - 110; }
+        this.setState({ flashIface: ifId });
+        clearTimeout(this._ft); this._ft = setTimeout(() => this.setState({ flashIface: null }), 1700);
+      }, 90);
+    } else if (this.mainEl) { setTimeout(() => { this.mainEl.scrollTop = 0; }, 0); }
+  }
+  backToList() { this.setState({ view: 'search' }); }
+  copyText(t) { try { navigator.clipboard.writeText(t); } catch (e) {} this.toast('Copied  ✓'); }
+  toast(msg) { this.setState({ toast: msg }); clearTimeout(this._tt); this._tt = setTimeout(() => this.setState({ toast: '' }), 1600); }
+  openVs(id) { this.setState({ view: 'valuesets', expandedVs: { ...this.state.expandedVs, [id]: true } }); if (this.mainEl) setTimeout(() => { this.mainEl.scrollTop = 0; }, 0); }
+  toggleVs(id) { const e = { ...this.state.expandedVs }; if (e[id]) delete e[id]; else e[id] = true; this.setState({ expandedVs: e }); }
+  filterByIface(id) { this.setState({ view: 'search', selectedId: null, filters: { ...this.state.filters, interface: id } }); if (this.mainEl) setTimeout(() => { this.mainEl.scrollTop = 0; }, 0); }
+
+  // admin
+  startAddEl() { const d = this.state.data; this.setState({ addingEl: true, neName: '', neDomain: d.domains[0].id, neType: 'Coded', neBound: 'N' }); }
+  cancelAddEl() { this.setState({ addingEl: false }); }
+  onNeName(e) { this.setState({ neName: e.target.value }); }
+  onNeDomain(e) { this.setState({ neDomain: e.target.value }); }
+  onNeType(e) { this.setState({ neType: e.target.value }); }
+  submitAddEl() {
+    const d = this.state.data; const name = (this.state.neName || '').trim(); if (!name) { this.toast('Enter a name'); return; }
+    const nums = d.elements.map(x => parseInt(x.id.split('-')[1], 10)); const nid = 'CDM-' + String(Math.max.apply(null, nums) + 1).padStart(4, '0');
+    const el = { id: nid, name, definition: '(New element — definition pending.)', domain: this.state.neDomain, dataType: this.state.neType, terminologyBound: 'N', valueSet: '', steward: '—', status: 'Draft' };
+    this.setState({ data: { ...d, elements: [...d.elements, el] }, addingEl: false, modEls: { ...this.state.modEls, [nid]: true }, view: 'detail', selectedId: nid });
+    this.toast(nid + ' added');
+  }
+  onEditDef() { const el = this.state.data.elements.find(e => e.id === this.state.selectedId); this.setState({ editingDef: true, defDraft: el ? el.definition : '' }); }
+  onDefDraft(e) { this.setState({ defDraft: e.target.value }); }
+  onCancelDef() { this.setState({ editingDef: false }); }
+  onSaveDef() {
+    const d = this.state.data; const id = this.state.selectedId;
+    const elements = d.elements.map(e => e.id === id ? { ...e, definition: this.state.defDraft, updatedBy: 'You (Admin)', updatedAt: this.today() } : e);
+    this.setState({ data: { ...d, elements }, editingDef: false, modEls: { ...this.state.modEls, [id]: true } });
+    this.toast('Definition updated');
+  }
+  changeStatus(id, val) { const d = this.state.data; const elements = d.elements.map(e => e.id === id ? { ...e, status: val, updatedBy: 'You (Admin)', updatedAt: this.today() } : e); this.setState({ data: { ...d, elements }, modEls: { ...this.state.modEls, [id]: true } }); }
+  updateMappingOpt(elId, ifId, val) {
+    const d = this.state.data;
+    const mappings = d.mappings.map(m => (m.elementId === elId && m.interfaceId === ifId) ? { ...m, optionality: val } : m);
+    const elements = d.elements.map(e => e.id === elId ? { ...e, updatedBy: 'You (Admin)', updatedAt: this.today() } : e);
+    this.setState({ data: { ...d, mappings, elements }, modMaps: { ...this.state.modMaps, [elId + '|' + ifId]: true }, modEls: { ...this.state.modEls, [elId]: true } });
+  }
+  onNcCode(e) { this.setState({ ncCode: e.target.value }); }
+  onNcDisplay(e) { this.setState({ ncDisplay: e.target.value }); }
+  addCode(vsId) {
+    const c = (this.state.ncCode || '').trim(); if (!c) { this.toast('Enter a code'); return; }
+    const disp = (this.state.ncDisplay || '').trim() || c; const d = this.state.data;
+    const valueSetCodes = [...d.valueSetCodes, { valueSetId: vsId, code: c, display: disp, note: 'Added (admin)' }];
+    this.setState({ data: { ...d, valueSetCodes }, ncCode: '', ncDisplay: '', modVs: { ...this.state.modVs, [vsId]: true } });
+    this.toast('Code added');
+  }
+
+  renderVals() {
+    const d = this.state.data;
+    const accent = this.accent();
+    const isAdmin = this.state.role === 'Admin';
+    const base = {
+      loading: !d, ready: !!d, isAdmin, notAdmin: !isAdmin,
+      setMainRef: (el) => { this.mainEl = el; },
+      setViewer: () => this.setViewer(), setAdmin: () => this.setAdmin(),
+      brandStyle: { width: '30px', height: '30px', borderRadius: '7px', background: accent, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '13px', color: '#fff', letterSpacing: '.5px', flex: 'none' },
+      viewerBtnStyle: { border: 'none', cursor: 'pointer', padding: '6px 15px', borderRadius: '6px', fontSize: '12.5px', fontWeight: 600, background: !isAdmin ? accent : 'transparent', color: !isAdmin ? '#fff' : '#8FB4B2' },
+      adminBtnStyle: { border: 'none', cursor: 'pointer', padding: '6px 15px', borderRadius: '6px', fontSize: '12.5px', fontWeight: 600, background: isAdmin ? accent : 'transparent', color: isAdmin ? '#fff' : '#8FB4B2' },
+      toast: this.state.toast
+    };
+    if (!d) return base;
+
+    const S = this.state;
+    const q = (S.query || '').trim();
+    const domById = Object.fromEntries(d.domains.map(x => [x.id, x]));
+    const ifById = Object.fromEntries(d.interfaces.map(x => [x.id, x]));
+    const vsById = Object.fromEntries(d.valueSets.map(x => [x.id, x]));
+    const mapsByEl = {}; d.mappings.forEach(m => { (mapsByEl[m.elementId] = mapsByEl[m.elementId] || []).push(m); });
+    const showNotes = !(this.props && this.props.showMatchNotes === false);
+    const F = S.filters;
+    const view = S.view;
+
+    // nav
+    const navMk = (key, label, count) => {
+      const active = key === 'search' ? (view === 'search' || view === 'detail') : view === key;
+      return {
+        key, label, count: count === '' ? '' : String(count),
+        onClick: () => this.navTo(key),
+        style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', width: '100%', border: 'none', cursor: 'pointer', padding: '9px 11px', borderRadius: '8px', fontSize: '13.5px', fontWeight: active ? 600 : 500, background: active ? accent : 'transparent', color: active ? '#fff' : '#CFE0DE', textAlign: 'left' },
+        countStyle: { fontSize: '11px', fontWeight: 600, opacity: active ? 0.9 : 0.6, background: active ? 'rgba(255,255,255,.18)' : 'rgba(255,255,255,.06)', padding: '1px 7px', borderRadius: '20px' }
+      };
+    };
+    base.navItems = [
+      navMk('home', 'Home', ''),
+      navMk('search', 'Search elements', d.elements.length),
+      navMk('matrix', 'Coverage matrix', ''),
+      navMk('valuesets', 'Value sets', d.valueSets.length),
+      navMk('interfaces', 'Locations', d.interfaces.length)
+    ];
+
+    // shared styles
+    base.selStyle = { height: '36px', border: '1px solid #D6D2E4', borderRadius: '8px', background: '#fff', padding: '0 10px', fontSize: '12.5px', color: '#1B2A2F', cursor: 'pointer' };
+    base.optSelStyle = { height: '30px', border: '1px solid #D6D2E4', borderRadius: '6px', background: '#fff', padding: '0 6px', fontSize: '12px', color: '#1B2A2F', cursor: 'pointer', fontFamily: "'IBM Plex Mono',monospace" };
+    base.inputStyle = { height: '38px', border: '1px solid #D6D2E4', borderRadius: '8px', background: '#fff', padding: '0 11px', fontSize: '13px', color: '#1B2A2F' };
+    base.fieldLabelStyle = { fontSize: '10px', fontWeight: 600, letterSpacing: '.6px', textTransform: 'uppercase', color: '#9AA6A6' };
+    base.primaryBtnStyle = { height: '38px', padding: '0 16px', border: 'none', borderRadius: '8px', background: accent, color: '#fff', fontSize: '13px', fontWeight: 600, cursor: 'pointer' };
+    base.addElBtnStyle = { height: '36px', padding: '0 14px', border: '1px solid ' + accent, borderRadius: '8px', background: '#fff', color: accent, fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' };
+    base.cardStyle = { textAlign: 'left', cursor: 'pointer', background: '#fff', border: '1px solid #E4E1EF', borderRadius: '11px', padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '9px', boxShadow: '0 1px 2px rgba(0,0,0,.03)', transition: 'border-color .12s, box-shadow .12s' };
+    base.cardHover = { borderColor: accent, boxShadow: '0 3px 12px rgba(46,139,139,.14)' };
+    base.ifaceCardStyle = { textAlign: 'left', cursor: 'pointer', background: '#fff', border: '1px solid #E4E1EF', borderRadius: '12px', padding: '15px 16px', boxShadow: '0 1px 2px rgba(0,0,0,.03)', transition: 'border-color .12s, box-shadow .12s' };
+    base.thStyle = { padding: '9px 12px', fontSize: '10.5px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.5px', color: '#7A8A8E', borderBottom: '1px solid #E4E1EF', whiteSpace: 'nowrap' };
+    base.tdStyle = { padding: '10px 12px', borderBottom: '1px solid #EEECF6', verticalAlign: 'top', color: '#2B3A3F' };
+
+    // view flags
+    base.viewHome = view === 'home';
+    base.viewSearch = view === 'search';
+    base.viewDetail = view === 'detail' && !!S.selectedId;
+    base.viewMatrix = view === 'matrix';
+    base.viewValueSets = view === 'valuesets';
+    base.viewInterfaces = view === 'interfaces';
+
+    // filter option lists
+    base.query = S.query; base.filters = F;
+    base.onQuery = (e) => this.onQuery(e); base.clearQuery = () => this.clearQuery(); base.clearAll = () => this.clearAll();
+    base.setSearchRef = (el) => { this.searchRef = el; };
+    base.onHomeSearch = (e) => this.onHomeSearch(e);
+    base.suggestChipStyle = { border: '1px solid #E1DEEC', background: '#fff', color: '#5A4BD1', fontSize: '12px', fontWeight: 500, padding: '4px 11px', borderRadius: '20px', cursor: 'pointer', fontFamily: "'IBM Plex Mono',monospace" };
+    base.suggestChips = ['PV1-19', 'encompassingEncounter', 'visit', 'medication', 'diagnosis', 'specimen'].map(t => ({ label: t, onClick: () => this.applySuggest(t) }));
+    base.onFD = (e) => this.onFD(e); base.onFI = (e) => this.onFI(e); base.onFS = (e) => this.onFS(e); base.onFO = (e) => this.onFO(e);
+    base.toggleBound = () => this.toggleBound(); base.clearFilters = () => this.clearFilters();
+    base.domainOptions = d.domains;
+    base.interfaceOptions = d.interfaces.map(i => ({ id: i.id, label: i.id + ' · ' + i.name }));
+    base.standardOptions = Array.from(new Set(d.interfaces.map(i => i.standard))).map(s => ({ v: s, label: s }));
+    base.optBucketOptions = [
+      { v: 'green', label: 'M / R  (mandatory / required)' },
+      { v: 'blue', label: 'R2  (required if known)' },
+      { v: 'amber', label: 'O  (optional)' },
+      { v: 'gray', label: 'I / NP  (ignored / not permitted)' },
+      { v: 'orange', label: 'C / conditional / mixed' }
+    ];
+    base.hasFilters = !!(F.domain || F.interface || F.standard || F.optionality || F.boundOnly);
+    base.boundBtnStyle = { height: '36px', padding: '0 12px', borderRadius: '8px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', border: '1px solid ' + (F.boundOnly ? accent : '#D6D2E4'), background: F.boundOnly ? accent : '#fff', color: F.boundOnly ? '#fff' : '#5A6B6F' };
+
+    // admin add-element
+    base.addingEl = S.addingEl && isAdmin;
+    base.startAddEl = () => this.startAddEl(); base.cancelAddEl = () => this.cancelAddEl(); base.submitAddEl = () => this.submitAddEl();
+    base.neName = S.neName; base.neDomain = S.neDomain; base.neType = S.neType;
+    base.onNeName = (e) => this.onNeName(e); base.onNeDomain = (e) => this.onNeDomain(e); base.onNeType = (e) => this.onNeType(e);
+    base.typeOptions = ['Identifier', 'Date', 'DateTime', 'Coded', 'Structured/Complex', 'Numeric', 'Text'];
+
+    // ---------- SEARCH results ----------
+    const ql = q.toLowerCase();
+    const rows = [];
+    d.elements.forEach(el => {
+      const maps = mapsByEl[el.id] || [];
+      const locs = [];
+      if (q) {
+        if (el.name.toLowerCase().includes(ql)) locs.push({ t: 'name' });
+        if ((el.definition || '').toLowerCase().includes(ql)) locs.push({ t: 'definition' });
+        const vs = vsById[el.valueSet];
+        if (vs && (vs.name.toLowerCase().includes(ql) || (vs.displayName || '').toLowerCase().includes(ql))) locs.push({ t: 'value set' });
+        maps.forEach(m => {
+          if ((m.fullPath || '').toLowerCase().includes(ql)) locs.push({ t: 'path', if: m.interfaceId, text: m.fullPath });
+          else if ((m.localName || '').toLowerCase().includes(ql)) locs.push({ t: 'local name', if: m.interfaceId, text: m.localName });
+          else if ((m.parent || '').toLowerCase().includes(ql)) locs.push({ t: 'parent', if: m.interfaceId, text: m.parent });
+        });
+      }
+      const passQ = !q || locs.length > 0;
+      const passDom = !F.domain || el.domain === F.domain;
+      const passIf = !F.interface || maps.some(m => m.interfaceId === F.interface);
+      const passStd = !F.standard || maps.some(m => (ifById[m.interfaceId] || {}).standard === F.standard);
+      const passOpt = !F.optionality || maps.some(m => this.optKey(m.optionality) === F.optionality);
+      const passBound = !F.boundOnly || el.terminologyBound === 'Y';
+      if (!(passQ && passDom && passIf && passStd && passOpt && passBound)) return;
+
+      let matchNode = null;
+      if (q && showNotes && locs.length) {
+        const primary = locs.find(l => l.if) || locs[0];
+        let head;
+        if (primary.if) {
+          const ifn = ifById[primary.if];
+          head = React.createElement(React.Fragment, null, 'matched ' + primary.t + ' in ' + primary.if + ' ' + ifn.name + ': ', this.hi(primary.text, q));
+        } else head = 'matched ' + primary.t;
+        const more = locs.length - 1;
+        matchNode = React.createElement(React.Fragment, null, head, more > 0 ? React.createElement('span', { style: { color: '#9AA6A6' } }, '   +' + more + ' more') : null);
+      }
+
+      rows.push({
+        id: el.id, name: el.name, nameNode: this.hi(el.name, q),
+        domainName: (domById[el.domain] || {}).name || el.domain,
+        dataType: el.dataType,
+        bound: el.terminologyBound === 'Y',
+        boundVsName: el.valueSet ? ((vsById[el.valueSet] || {}).name || el.valueSet) : '',
+        status: el.status, statusStyle: this.statusStyle(el.status),
+        mappingCount: maps.length,
+        modified: !!S.modEls[el.id],
+        matchNode,
+        onOpen: () => this.openElement(el.id)
+      });
+    });
+    base.results = rows; base.resultCount = rows.length; base.totalCount = d.elements.length;
+    base.hasResults = rows.length > 0; base.noResults = rows.length === 0;
+
+    // ---------- DETAIL ----------
+    if (base.viewDetail) {
+      const el = d.elements.find(e => e.id === S.selectedId);
+      if (el) {
+        const maps = mapsByEl[el.id] || [];
+        const presentIf = new Set(maps.map(m => m.interfaceId));
+        const present = maps.map(m => {
+          const ifn = ifById[m.interfaceId]; const key = el.id + '|' + m.interfaceId;
+          const flash = S.flashIface === m.interfaceId;
+          return {
+            key, ifName: ifn.name, stdStyle: this.stdStyle(ifn.standard), stdLabel: this.stdLabel(ifn.standard),
+            localName: m.localName || '—', parent: m.parent || '—', fullPath: m.fullPath || '',
+            optCode: m.optionality, optStyle: this.chipStyle(m.optionality),
+            cardinality: m.cardinality || '—', dataType: m.dataType || '—',
+            vsName: m.valueSet ? ((vsById[m.valueSet] || {}).name || m.valueSet) : '—',
+            source: m.source || '—', notes: m.notes || '',
+            rowStyle: { borderLeft: flash ? ('3px solid ' + accent) : '3px solid transparent', background: flash ? '#FBF6E6' : 'transparent', transition: 'background .4s' },
+            setRef: (node) => { if (node) this.mapRowRefs[m.interfaceId] = node; },
+            onCopy: () => this.copyText(m.fullPath),
+            optOptions: Array.from(new Set([m.optionality, 'M', 'R', 'R2', 'O', 'I', 'NP', 'C'])),
+            onOptChange: (e) => this.updateMappingOpt(el.id, m.interfaceId, e.target.value)
+          };
+        });
+        const pending = ['IF-15', 'DB-02'].map(id => ifById[id]).filter(Boolean).map(i => ({ name: i.id + ' ' + i.name }));
+        const notPresent = d.interfaces.filter(i => !presentIf.has(i.id) && i.id !== 'IF-15' && i.id !== 'DB-02');
+        base.sel = {
+          id: el.id, name: el.name, definition: el.definition,
+          domainName: (domById[el.domain] || {}).name || el.domain,
+          dataType: el.dataType, createdBy: el.createdBy || '—', createdAt: el.createdAt || '—', updatedBy: el.updatedBy || '—', updatedAt: el.updatedAt || '—',
+          bound: el.terminologyBound === 'Y', notBound: el.terminologyBound !== 'Y',
+          vsName: el.valueSet ? ((vsById[el.valueSet] || {}).name || el.valueSet) : '',
+          status: el.status, statusStyle: this.statusStyle(el.status),
+          modified: !!S.modEls[el.id],
+          present, presentCount: present.length,
+          pending, notPresent, hasNotPresent: notPresent.length > 0,
+          notPresentNames: notPresent.map(i => i.id + ' ' + i.name).join('   ·   '),
+          editingDef: S.editingDef, notEditingDef: !S.editingDef, defDraft: S.defDraft,
+          onStatusChange: (e) => this.changeStatus(el.id, e.target.value),
+          onVsLink: (e) => { if (e && e.preventDefault) e.preventDefault(); if (el.valueSet) this.openVs(el.valueSet); }
+        };
+        base.statusOptions = ['Draft', 'In Review', 'Approved', 'Deprecated'];
+        base.onEditDef = () => this.onEditDef(); base.onDefDraft = (e) => this.onDefDraft(e);
+        base.onSaveDef = () => this.onSaveDef(); base.onCancelDef = () => this.onCancelDef();
+      }
+    }
+
+    // ---------- MATRIX ----------
+    if (base.viewMatrix) {
+      base.matrixCols = d.interfaces.map(i => ({ id: i.id, name: i.name, stdStyle: this.stdStyle(i.standard), stdLabel: this.stdLabel(i.standard) }));
+      base.matrixRows = d.elements.map(el => {
+        const maps = mapsByEl[el.id] || [];
+        const byIf = {}; maps.forEach(m => { byIf[m.interfaceId] = m; });
+        return {
+          id: el.id, name: el.name, onOpen: () => this.openElement(el.id),
+          headStyle: { position: 'sticky', left: 0, zIndex: 1, background: '#fff', padding: '9px 12px', borderBottom: '1px solid #EEECF6', borderRight: '1px solid #E4E1EF', textAlign: 'left', minWidth: '190px', verticalAlign: 'top' },
+          cells: d.interfaces.map(i => {
+            const m = byIf[i.id]; const pend = (i.id === 'IF-15' || i.id === 'DB-02');
+            const tdStyle = { padding: '8px 9px', borderBottom: '1px solid #EEECF6', borderRight: '1px solid #F1EFFA', verticalAlign: 'top', minWidth: '150px' };
+            if (m) return { has: true, pendingOnly: false, blank: false, key: el.id + i.id, path: m.fullPath, pathShort: this.trunc(m.fullPath, 30), optCode: m.optionality, optStyle: this.chipStyle(m.optionality), onClick: () => this.openElement(el.id, i.id), tdStyle };
+            return { has: false, pendingOnly: pend, blank: !pend, key: el.id + i.id, tdStyle };
+          })
+        };
+      });
+      const pal = this.optPalette();
+      const legDot = (c) => ({ display: 'inline-block', width: '11px', height: '11px', borderRadius: '3px', background: pal[c].bg, border: '1px solid ' + pal[c].bd });
+      base.legend = [
+        { label: 'M / R', dot: legDot('green') }, { label: 'R2', dot: legDot('blue') },
+        { label: 'O', dot: legDot('amber') }, { label: 'I / NP', dot: legDot('gray') },
+        { label: 'C / mixed', dot: legDot('orange') }
+      ];
+    }
+
+    // ---------- VALUE SETS ----------
+    if (base.viewValueSets) {
+      base.ncCode = S.ncCode; base.ncDisplay = S.ncDisplay;
+      base.onNcCode = (e) => this.onNcCode(e); base.onNcDisplay = (e) => this.onNcDisplay(e);
+      base.vsRows = d.valueSets.map(vs => {
+        const codes = d.valueSetCodes.filter(c => c.valueSetId === vs.id);
+        const usedEls = d.elements.filter(e => e.valueSet === vs.id || (mapsByEl[e.id] || []).some(m => m.valueSet === vs.id));
+        const expanded = !!S.expandedVs[vs.id];
+        let sampleNote = '';
+        if (vs.totalCodes != null && codes.length < vs.totalCodes) sampleNote = 'Showing ' + codes.length + ' sample code' + (codes.length === 1 ? '' : 's') + ' — full set of ' + vs.totalCodes.toLocaleString() + ' maintained in IS0200.';
+        else if (vs.totalCodes == null) sampleNote = 'Codes not enumerated here (licensed classification — see IS0200).';
+        return {
+          id: vs.id, name: vs.name, displayName: vs.displayName, vsOid: vs.vsOid, csOid: vs.csOid,
+          binding: vs.binding, totalLabel: vs.totalCodes == null ? '—' : vs.totalCodes.toLocaleString(),
+          description: vs.description, modified: !!S.modVs[vs.id],
+          codes: codes.map(c => ({ code: c.code, display: c.display })), sampleNote,
+          usedByNames: usedEls.length ? usedEls.map(e => e.name).join('   ·   ') : '—', usedByCount: usedEls.length,
+          expanded, chev: expanded ? 'rotate(90deg)' : 'rotate(0deg)',
+          onToggle: () => this.toggleVs(vs.id), onAddCode: () => this.addCode(vs.id)
+        };
+      });
+    }
+
+    // ---------- INTERFACES ----------
+    if (base.viewInterfaces) {
+      base.ifaceRows = d.interfaces.map(i => {
+        const count = d.elements.filter(e => (mapsByEl[e.id] || []).some(m => m.interfaceId === i.id)).length;
+        return { id: i.id, name: i.name, stdStyle: this.stdStyle(i.standard), stdLabel: this.stdLabel(i.standard), content: i.content, pathSyntax: i.pathSyntax, count, onFilter: () => this.filterByIface(i.id) };
+      });
+    }
+
+    // ---------- HOME ----------
+    if (base.viewHome) {
+      base.homeStats = [
+        { value: d.elements.length, label: 'Data elements' },
+        { value: d.mappings.length, label: 'Mappings' },
+        { value: d.interfaces.length, label: 'Locations' },
+        { value: d.valueSets.length, label: 'Value sets' },
+        { value: d.domains.length, label: 'Clinical domains' }
+      ];
+      base.homeCardStyle = { textAlign: 'left', cursor: 'pointer', background: '#fff', border: '1px solid #E4E1EF', borderRadius: '13px', padding: '18px', boxShadow: '0 1px 2px rgba(28,21,102,.03)', transition: 'border-color .12s, box-shadow .12s' };
+      base.homeCards = [
+        { title: 'Search elements', desc: 'Find any element and see all its mappings and paths.', barStyle: this.bar('#4C79E6'), onClick: () => this.navTo('search') },
+        { title: 'Coverage matrix', desc: 'Every element × every location at a glance, with optionality.', barStyle: this.bar('#8A6AD4'), onClick: () => this.navTo('matrix') },
+        { title: 'Value sets', desc: 'Terminology bindings, OIDs, codes and where they are used.', barStyle: this.bar('#D268A6'), onClick: () => this.navTo('valuesets') },
+        { title: 'Locations', desc: 'The 17 source locations and their standards.', barStyle: this.bar('#2BC4E8'), onClick: () => this.navTo('interfaces') }
+      ];
+      const byLabel = {};
+      d.interfaces.forEach(i => { const l = this.stdLabel(i.standard); if (!byLabel[l]) byLabel[l] = { label: l, ifaces: 0, maps: 0, style: this.stdStyle(i.standard) }; byLabel[l].ifaces++; });
+      d.mappings.forEach(m => { const i = ifById[m.interfaceId]; if (!i) return; const l = this.stdLabel(i.standard); if (byLabel[l]) byLabel[l].maps++; });
+      base.standardsCoverage = Object.values(byLabel);
+      base.homeDomains = d.domains.map(dm => ({ name: dm.name, count: d.elements.filter(e => e.domain === dm.id).length, onClick: () => this.filterByDomain(dm.id) })).filter(x => x.count > 0).sort((a, b) => b.count - a.count);
+    }
+
+    return base;
+  }
+}
+</script>
+</body>
+</html>
