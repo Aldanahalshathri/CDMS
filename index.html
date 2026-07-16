@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark" data-lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لين لخدمات الأعمال | Lean Business Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06091e;--bg2:#0c1136;--bg3:#121940;
+  --p:#5b3de8;--pm:#7d5ff0;--pg:#bfaaff;
+  --pa:rgba(91,61,232,.13);--brd:rgba(91,61,232,.22);
+  --txt:#ffffff;--txt2:#c8cce6;--mut:#6870a8;
+  --card:#0c1136;--nbg:rgba(6,9,30,.93);
+  --ease:cubic-bezier(.23,1,.32,1);--font:'Cairo',sans-serif;
+}
+[data-theme="light"]{
+  --bg:#f3f2ff;--bg2:#eae8ff;--bg3:#e0dcff;
+  --txt:#09072a;--txt2:#26225a;--mut:#6860a8;
+  --card:#ffffff;--nbg:rgba(243,242,255,.95);--brd:rgba(91,61,232,.15);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--txt);font-family:var(--font);cursor:none;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .5s,color .5s}
+a{text-decoration:none;color:inherit}button{font-family:var(--font);cursor:none}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--p);border-radius:2px}
+#C1{width:9px;height:9px;background:var(--pg);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .2s,height .2s}
+#C2{width:30px;height:30px;border:1.5px solid rgba(191,170,255,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .28s var(--ease),height .28s var(--ease)}
+body.hov #C1{width:15px;height:15px}body.hov #C2{width:48px;height:48px;border-color:rgba(191,170,255,.8)}
+nav{position:fixed;top:0;width:100%;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;transition:all .45s;border-bottom:1px solid transparent}
+nav.on{background:var(--nbg);backdrop-filter:blur(28px);border-bottom-color:var(--brd)}
+.nlogo{display:flex;align-items:center;gap:.7rem;flex-shrink:0}
+.nlogo-img{height:38px;width:38px;border-radius:8px;object-fit:contain;transition:transform .3s var(--ease)}
+[data-theme="dark"] .nlogo-img{filter:brightness(0) invert(1)}
+.nlogo-name{line-height:1.25}
+.nlogo-main{font-size:.86rem;font-weight:800;color:var(--txt)}
+.nlogo-sub{font-size:.58rem;font-weight:600;color:var(--pg);letter-spacing:.01em;margin-top:.08rem}
+[data-lang="en"] .nlogo-ar{display:none}[data-lang="ar"] .nlogo-en{display:none}
+.nlinks{display:flex;gap:1.4rem;list-style:none;align-items:center}
+.nlinks a{font-size:.79rem;font-weight:600;color:var(--mut);transition:color .25s;position:relative;white-space:nowrap}
+.nlinks a::after{content:'';position:absolute;bottom:-3px;right:0;width:0;height:1.5px;background:var(--pg);transition:width .3s var(--ease)}
+.nlinks a:hover,.nlinks a.on{color:var(--txt)}.nlinks a:hover::after,.nlinks a.on::after{width:100%}
+.ncta{background:linear-gradient(135deg,var(--p),var(--pm))!important;color:#fff!important;padding:.44rem 1.15rem;border-radius:6px;font-weight:700!important;box-shadow:0 4px 16px rgba(91,61,232,.4);transition:all .3s var(--ease)!important}
+.ncta::after{display:none!important}.ncta:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(91,61,232,.55)!important}
+.nctrl{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.ttgl{display:flex;align-items:center;border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:.2rem .32rem;background:rgba(255,255,255,.07);cursor:none;gap:.22rem}
+[data-theme="light"] .ttgl{border-color:rgba(0,0,0,.14);background:rgba(0,0,0,.05)}
+.ttgl-i{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;transition:all .3s;color:rgba(255,255,255,.4);filter:grayscale(1)}
+[data-theme="light"] .ttgl-i{color:rgba(0,0,0,.3)}
+.ttgl-i.on{background:rgba(255,255,255,.2);color:rgba(255,255,255,.95);filter:grayscale(1) brightness(2)}
+[data-theme="light"] .ttgl-i.on{background:rgba(0,0,0,.1);color:rgba(0,0,0,.7);filter:grayscale(1)}
+.nlang{font-size:.74rem;font-weight:800;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2);padding:.22rem .62rem;border-radius:6px;cursor:none;transition:all .3s;background:transparent;letter-spacing:.05em}
+[data-theme="light"] .nlang{color:var(--mut);border-color:var(--brd)}
+.nlang:hover{color:rgba(255,255,255,.9);border-color:rgba(255,255,255,.5)}
+[data-theme="light"] .nlang:hover{color:var(--p);border-color:var(--p)}
+.dock{position:fixed;bottom:1.6rem;right:50%;transform:translateX(50%);z-index:800;display:flex;gap:.28rem;background:var(--card);border:1px solid var(--brd);border-radius:50px;padding:.35rem .44rem;box-shadow:0 8px 40px rgba(0,0,0,.5);backdrop-filter:blur(24px);transition:background .5s}
+.dbn{padding:.35rem .88rem;font-size:.73rem;font-weight:700;color:var(--mut);border-radius:25px;cursor:none;transition:all .3s;border:none;background:transparent;font-family:var(--font);white-space:nowrap}
+.dbn.on{background:linear-gradient(135deg,var(--p),var(--pm));color:#fff;box-shadow:0 3px 12px rgba(91,61,232,.42)}
+.dbn:hover:not(.on){color:var(--txt);background:var(--pa)}
+.pg{display:none}.pg.on{display:block;animation:pIn .5s var(--ease)}
+@keyframes pIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:9rem 4rem 5rem;position:relative;overflow:hidden}
+.hbg-d{position:absolute;inset:0;background:linear-gradient(155deg,#06091e 0%,#0c1040 55%,#060820 100%);transition:opacity .5s}
+.hbg-l{position:absolute;inset:0;opacity:0;background:linear-gradient(155deg,#f3f2ff,#eae8ff);transition:opacity .5s}
+[data-theme="light"] .hbg-l{opacity:1}[data-theme="light"] .hbg-d{opacity:0}
+.dna-bg{position:absolute;inset:0;pointer-events:none;z-index:1;transition:opacity .5s}
+[data-theme="dark"] .dna-bg{opacity:.9}[data-theme="light"] .dna-bg{opacity:.34}
+.hero-ov{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 56% 78% at 0% 50%,rgba(6,9,30,.95) 0%,rgba(6,9,30,.5) 38%,transparent 66%)}
+[data-theme="light"] .hero-ov{background:radial-gradient(ellipse 56% 78% at 0% 50%,rgba(243,242,255,.97) 0%,rgba(243,242,255,.55) 38%,transparent 66%)}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:1}
+.o1{width:440px;height:440px;background:radial-gradient(circle,rgba(91,61,232,.26),transparent 70%);top:5%;left:3%;animation:oa 11s ease-in-out infinite}
+.o2{width:300px;height:300px;background:radial-gradient(circle,rgba(160,100,255,.18),transparent 70%);bottom:12%;left:18%;animation:ob 14s ease-in-out infinite}
+@keyframes oa{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,42px) scale(1.12)}}
+@keyframes ob{0%,100%{transform:translate(0,0)}50%{transform:translate(-22px,-32px) scale(.9)}}
+[data-theme="light"] .o1{background:radial-gradient(circle,rgba(91,61,232,.14),transparent 70%)}
+[data-theme="light"] .o2{background:radial-gradient(circle,rgba(160,100,255,.1),transparent 70%)}
+.hcnt{position:relative;z-index:3;max-width:700px}
+.hpill{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(191,170,255,.28);background:rgba(91,61,232,.12);color:var(--pg);font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.36rem .95rem;border-radius:4px;margin-bottom:2rem;opacity:0;animation:su .8s .1s forwards}
+.hdot{width:5px;height:5px;background:var(--pg);border-radius:50%;animation:bk 2s infinite}
+@keyframes bk{0%,100%{box-shadow:0 0 0 0 rgba(191,170,255,.6)}50%{box-shadow:0 0 0 6px transparent}}
+.hh1{font-size:clamp(3rem,6.5vw,7rem);font-weight:900;line-height:1.04;letter-spacing:-.04em;opacity:0;animation:su .9s .25s forwards}
+.gt{background:linear-gradient(135deg,#bfaaff 10%,#e2d8ff 90%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ot{color:#7d5ff0;opacity:.55}
+[data-theme="light"] .ot{color:#5b3de8;opacity:.4}
+.hbtns{margin-top:3rem;display:flex;gap:1rem;align-items:center;opacity:0;animation:su .9s .55s forwards}
+.bp{background:linear-gradient(135deg,var(--p),var(--pm));color:#fff;padding:.9rem 2.5rem;font-weight:800;font-size:.9rem;letter-spacing:.04em;border:none;border-radius:8px;cursor:none;position:relative;overflow:hidden;box-shadow:0 8px 26px rgba(91,61,232,.44);transition:all .3s var(--ease);font-family:var(--font)}
+.bp::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:translateX(-100%);transition:transform .6s}
+.bp:hover::before{transform:translateX(100%)}.bp:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(91,61,232,.6)}
+.bs{display:flex;align-items:center;gap:.5rem;color:var(--mut);font-size:.86rem;cursor:none;transition:color .3s;font-weight:600}
+.bs:hover{color:var(--txt)}.bs-c{width:36px;height:36px;border:1.5px solid var(--brd);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82rem;transition:all .35s var(--ease)}
+.bs:hover .bs-c{border-color:var(--pg);color:var(--pg);transform:rotate(-45deg)}
+.hstats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(191,170,255,.14);max-width:680px;margin-top:5rem;opacity:0;animation:su .9s .9s forwards}
+.hst{padding:1.8rem 2rem 0 0;border-left:1px solid rgba(191,170,255,.12)}.hst:first-child{border-left:none;padding-right:0}
+.hsn{font-size:2.8rem;font-weight:900;letter-spacing:-.04em;line-height:1;background:linear-gradient(135deg,var(--txt),var(--pg));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hsl{font-size:.72rem;color:var(--mut);margin-top:.4rem;line-height:1.6;font-weight:600}
+@keyframes su{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.shint{position:absolute;bottom:2rem;right:50%;transform:translateX(50%);display:flex;flex-direction:column;align-items:center;gap:.45rem;z-index:3;opacity:0;animation:su .8s 1.2s forwards}
+.sline{width:1px;height:42px;background:linear-gradient(to bottom,var(--pg),transparent);animation:sp 2s ease-in-out infinite}
+@keyframes sp{0%,100%{opacity:.3}50%{opacity:1}}
+.stxt{font-size:.6rem;letter-spacing:.16em;color:var(--mut);text-transform:uppercase;font-weight:700}
+.mq{border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);background:var(--bg2);padding:1rem 0;overflow:hidden;transition:background .5s}
+.mqt{display:flex;gap:3rem;animation:mq 26s linear infinite;white-space:nowrap}
+.mqi{display:flex;align-items:center;gap:.65rem;flex-shrink:0;font-size:.69rem;color:var(--mut);letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.mqs{color:var(--pm)}@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.s{padding:7rem 4rem}.salt{background:var(--bg2);transition:background .5s}
+.lbl{display:flex;align-items:center;gap:.7rem;font-size:.68rem;color:var(--pg);letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:1.3rem}
+.lbl::before{content:'';width:20px;height:1.5px;background:var(--pg)}
+.ttl{font-size:clamp(1.9rem,3.5vw,3rem);font-weight:900;letter-spacing:-.03em;line-height:1.1;color:var(--txt)}
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--brd);border:1px solid var(--brd)}
+.pc{background:var(--bg);padding:2.8rem;position:relative;overflow:hidden;cursor:none;transition:background .4s}
+[data-theme="light"] .pc{background:var(--card)}
+.pc::after{content:'';position:absolute;bottom:0;right:0;width:0;height:2.5px;background:linear-gradient(90deg,transparent,var(--pg));transition:width .55s var(--ease)}
+.pc:hover{background:var(--bg2)}[data-theme="light"] .pc:hover{background:var(--bg3)}.pc:hover::after{width:100%}
+.pn{position:absolute;top:2rem;left:2rem;font-size:5rem;font-weight:900;color:rgba(91,61,232,.07);line-height:1;transition:color .4s}.pc:hover .pn{color:rgba(91,61,232,.13)}
+.pi{width:48px;height:48px;background:var(--pa);border:1px solid var(--brd);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:1.6rem;transition:all .4s;position:relative;z-index:1}
+.pc:hover .pi{background:linear-gradient(135deg,var(--p),var(--pm));border-color:var(--p);box-shadow:0 8px 24px rgba(91,61,232,.46);transform:scale(1.08) rotate(5deg)}
+.pi svg{width:22px;height:22px;stroke:var(--pg);fill:none;stroke-width:1.5;transition:stroke .4s}.pc:hover .pi svg{stroke:#fff}
+.pt{font-size:1.12rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.65rem;position:relative;z-index:1;color:var(--txt)}
+.pd{font-size:.86rem;color:var(--mut);line-height:1.9;position:relative;z-index:1}
+.ecards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.ec{border:1px solid var(--brd);background:var(--card);padding:2.4rem;border-radius:14px;position:relative;overflow:hidden;cursor:none;transition:all .45s var(--ease)}
+.ec::before{content:'';position:absolute;top:-60%;right:-60%;width:120%;height:120%;background:radial-gradient(circle,rgba(91,61,232,.1),transparent 60%);opacity:0;transition:opacity .5s;border-radius:50%}
+.ec:hover{border-color:rgba(191,170,255,.35);transform:translateY(-8px);box-shadow:0 28px 60px rgba(0,0,0,.4)}[data-theme="light"] .ec:hover{box-shadow:0 20px 48px rgba(91,61,232,.18)}.ec:hover::before{opacity:1}
+.ec-logo-box{width:100%;height:100px;background:linear-gradient(135deg,rgba(255,255,255,.02),rgba(91,61,232,.04));border:1px solid rgba(191,170,255,.12);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;transition:all .4s;padding:1rem}
+[data-theme="light"] .ec-logo-box{background:linear-gradient(135deg,#fafaff,#f4f2ff)}
+.ec:hover .ec-logo-box{border-color:rgba(191,170,255,.3);transform:scale(1.02)}
+.ec-logo-box svg{height:68px;width:auto;transition:transform .4s}
+.ec:hover .ec-logo-box svg{transform:scale(1.06)}
+.ecb{display:inline-flex;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pg);background:var(--pa);border:1px solid rgba(191,170,255,.2);padding:.28rem .72rem;border-radius:4px;margin-bottom:1.2rem}
+.ect{font-size:.86rem;color:var(--txt);font-weight:700;margin-bottom:.6rem;letter-spacing:-.01em}
+.ecd{font-size:.84rem;color:var(--mut);line-height:1.9}
+.ecl{display:inline-flex;align-items:center;gap:.4rem;margin-top:1.4rem;font-size:.76rem;color:var(--pg);font-weight:700;letter-spacing:.06em;opacity:0;transform:translateY(7px);transition:all .4s}
+.ec:hover .ecl{opacity:1;transform:translateY(0)}
+.photos{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:240px;gap:1rem;margin-top:3rem}
+.phi{border-radius:10px;overflow:hidden;border:1px solid var(--brd);position:relative;cursor:none;transition:all .45s var(--ease)}
+.phi:hover{border-color:rgba(191,170,255,.35);transform:scale(1.015);box-shadow:0 20px 55px rgba(0,0,0,.48)}
+.phi img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.phi:hover img{transform:scale(1.08)}
+.phi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,9,30,.88),transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:1.4rem;opacity:0;transition:opacity .4s}
+[data-theme="light"] .phi-ov{background:linear-gradient(to top,rgba(9,7,42,.8),transparent 58%)}
+.phi:hover .phi-ov{opacity:1}
+.phi-lbl{font-size:.63rem;color:var(--pg);text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:.22rem}
+.phi-t{font-size:.9rem;font-weight:700;color:#fff}
+.impact-map-wrap{margin-top:3rem;display:grid;grid-template-columns:1.4fr 1fr;gap:2.5rem;align-items:center}
+.map-svg-box{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--brd);background:linear-gradient(160deg,var(--bg2),var(--bg));padding:1.5rem}
+.ksa-svg{width:100%;height:auto;display:block}
+.region-path{fill:rgba(91,61,232,.12);stroke:rgba(191,170,255,.35);stroke-width:1.5;cursor:none;transition:all .35s var(--ease)}
+.region-path:hover,.region-path.active{fill:rgba(125,95,240,.5);stroke:var(--pg);stroke-width:2.5}
+.region-dot{fill:var(--pg);cursor:none;pointer-events:none}
+.impact-info-region{font-size:.68rem;color:var(--pg);text-transform:uppercase;letter-spacing:.14em;font-weight:700;margin-bottom:.6rem;transition:opacity .3s}
+.impact-info-num{font-size:3.5rem;font-weight:900;letter-spacing:-.04em;line-height:1;background:linear-gradient(135deg,var(--txt),var(--pg));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;transition:all .3s}
+.impact-info-label{font-size:.9rem;color:var(--mut);font-weight:600;margin-bottom:1.5rem;line-height:1.7}
+.impact-stats-row{display:flex;gap:1.5rem;flex-wrap:wrap}
+.impact-stat{flex:1;min-width:100px}
+.impact-stat-n{font-size:1.4rem;font-weight:800;color:var(--txt);letter-spacing:-.02em}
+.impact-stat-l{font-size:.72rem;color:var(--mut);font-weight:600;margin-top:.2rem}
+.impact-hint{font-size:.78rem;color:var(--mut);margin-top:1.8rem;display:flex;align-items:center;gap:.5rem;font-weight:500}
+.ai-section{position:relative;overflow:hidden}
+.ai-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 30%,rgba(91,61,232,.12),transparent 62%)}
+.ai-card{max-width:760px;margin:3rem auto 0;background:var(--card);border:1px solid var(--brd);border-radius:18px;overflow:hidden;position:relative;z-index:1;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+[data-theme="light"] .ai-card{box-shadow:0 20px 60px rgba(91,61,232,.14)}
+.ai-card-head{background:linear-gradient(135deg,var(--p),var(--pm));padding:1.6rem 2rem;display:flex;align-items:center;gap:1rem}
+.ai-card-icon{width:48px;height:48px;background:rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:aiPulse 3s ease-in-out infinite}
+@keyframes aiPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.2)}50%{box-shadow:0 0 0 10px transparent}}
+.ai-card-icon svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.6}
+.ai-card-title{font-size:1.15rem;font-weight:800;color:#fff}
+.ai-card-sub{font-size:.74rem;color:rgba(255,255,255,.78);margin-top:.15rem}
+.ai-card-badge{margin-right:auto;background:rgba(255,255,255,.22);padding:.25rem .7rem;border-radius:20px;font-size:.65rem;font-weight:800;color:#fff;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem}
+.ai-card-badge::before{content:'';width:6px;height:6px;background:#4ade80;border-radius:50%;animation:bk 2s infinite}
+.ai-card-body{padding:2rem}
+.ai-intro{font-size:.9rem;color:var(--txt2);line-height:1.8;margin-bottom:1.5rem}
+.ai-textarea{width:100%;background:var(--bg2);border:1.5px solid var(--brd);color:var(--txt);padding:1rem 1.2rem;border-radius:12px;font-family:var(--font);font-size:.9rem;outline:none;transition:border-color .3s;min-height:90px;resize:vertical;line-height:1.7;margin-bottom:1rem}
+.ai-textarea:focus{border-color:var(--pg)}.ai-textarea::placeholder{color:var(--mut)}
+.ai-examples{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.3rem}
+.ai-ex{font-size:.72rem;color:var(--pg);border:1px solid rgba(191,170,255,.22);background:var(--pa);padding:.4rem .85rem;border-radius:20px;cursor:none;transition:all .25s;font-family:var(--font)}
+.ai-ex:hover{background:rgba(91,61,232,.2);border-color:rgba(191,170,255,.4)}
+.ai-analyze-btn{width:100%;background:linear-gradient(135deg,var(--p),var(--pm));color:#fff;padding:1rem;font-weight:800;font-size:.92rem;border:none;border-radius:12px;cursor:none;transition:all .3s var(--ease);display:flex;align-items:center;justify-content:center;gap:.6rem;box-shadow:0 8px 26px rgba(91,61,232,.42)}
+.ai-analyze-btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(91,61,232,.6)}
+.ai-analyze-btn:disabled{opacity:.6}
+.ai-analyze-btn svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2}
+.ai-result{margin-top:1.5rem;padding:1.5rem;background:var(--bg2);border:1px solid var(--brd);border-radius:12px;display:none}
+.ai-result.show{display:block;animation:fadeUp .5s var(--ease)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ai-result-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;font-size:.8rem;color:var(--pg);font-weight:700;letter-spacing:.05em}
+.ai-result-head svg{width:16px;height:16px;stroke:var(--pg);fill:none;stroke-width:2}
+.ai-result-text{font-size:.88rem;color:var(--txt2);line-height:1.85;white-space:pre-wrap}
+.ai-result-product{margin-top:1.2rem;padding:1rem 1.2rem;background:linear-gradient(135deg,rgba(91,61,232,.12),rgba(125,95,240,.06));border:1px solid rgba(191,170,255,.25);border-radius:10px;display:flex;align-items:center;gap:1rem}
+.ai-rp-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--p),var(--pm));border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem}
+.ai-rp-name{font-size:.95rem;font-weight:800;color:var(--txt)}
+.ai-rp-desc{font-size:.76rem;color:var(--mut);margin-top:.15rem}
+.ai-disclaimer{font-size:.7rem;color:var(--mut);margin-top:1rem;line-height:1.6;font-style:italic;opacity:.8}
+.ai-loading{display:flex;align-items:center;gap:.5rem;justify-content:center;padding:1rem}
+.ai-dot{width:8px;height:8px;background:var(--pg);border-radius:50%;animation:aiDot 1.4s ease-in-out infinite}
+.ai-dot:nth-child(2){animation-delay:.2s}.ai-dot:nth-child(3){animation-delay:.4s}
+@keyframes aiDot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-8px);opacity:1}}
+.jw{max-width:900px;margin:4rem auto 0;position:relative}
+.jw::before{content:'';position:absolute;right:50%;top:0;bottom:0;width:1.5px;background:linear-gradient(to bottom,transparent,var(--p),transparent);opacity:.28}
+.ji{display:grid;grid-template-columns:1fr 52px 1fr;margin-bottom:2.6rem;opacity:0;transform:translateX(-13px);transition:all .65s var(--ease)}
+.ji.r{transform:translateX(13px)}.ji.vis{opacity:1;transform:translateX(0)!important}
+.jc{background:var(--card);border:1px solid var(--brd);padding:1.8rem;border-radius:8px;transition:border-color .3s}.jc:hover{border-color:rgba(191,170,255,.3)}
+.jdw{display:flex;justify-content:center;align-items:center}
+.jd{width:11px;height:11px;background:var(--pg);border:3px solid var(--bg);border-radius:50%;box-shadow:0 0 0 4px rgba(191,170,255,.18),0 0 16px rgba(191,170,255,.32)}
+[data-theme="light"] .jd{border-color:var(--bg2)}
+.jp{font-size:.66rem;color:var(--pg);text-transform:uppercase;letter-spacing:.13em;font-weight:700;margin-bottom:.45rem}
+.jt{font-size:1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.45rem;color:var(--txt)}
+.jde{font-size:.82rem;color:var(--mut);line-height:1.84}
+.igrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);border:1px solid var(--brd)}
+.ic{background:var(--bg);padding:3.8rem 2.8rem;text-align:center;cursor:none;transition:background .4s;position:relative;overflow:hidden}
+[data-theme="light"] .ic{background:var(--card)}
+.ic::before{content:'';position:absolute;top:50%;right:50%;transform:translate(50%,-50%);width:0;height:0;background:radial-gradient(circle,rgba(91,61,232,.09),transparent 70%);border-radius:50%;transition:width .7s var(--ease),height .7s var(--ease)}
+.ic:hover{background:var(--bg2)}[data-theme="light"] .ic:hover{background:var(--bg3)}.ic:hover::before{width:300px;height:300px}
+.icn{font-size:clamp(2.8rem,4.5vw,4.2rem);font-weight:900;letter-spacing:-.04em;line-height:1;background:linear-gradient(135deg,var(--txt),var(--pg));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.7rem}
+.icl{font-size:.8rem;color:var(--mut);font-weight:700;line-height:1.7}
+.ics{font-size:.7rem;color:rgba(191,170,255,.52);margin-top:.35rem;font-style:italic}
+.cta{padding:9rem 4rem;text-align:center;position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 50%,rgba(91,61,232,.11),transparent 65%)}
+.ctah{font-size:clamp(2.6rem,6.5vw,6rem);font-weight:900;letter-spacing:-.04em;line-height:1.05;margin-bottom:1.8rem;position:relative;z-index:1}
+.ctas{color:var(--mut);font-size:1rem;max-width:440px;margin:0 auto 2.8rem;line-height:1.9;position:relative;z-index:1}
+.footer{background:#ffffff;border-top:1px solid #e5e5ea;padding:1.1rem 3rem;display:flex;align-items:center;justify-content:space-between;transition:background .5s}
+[data-theme="dark"] .footer{background:#f9f9fc}
+.ft-left{display:flex;align-items:center;gap:.8rem}
+.ft-pif{height:46px;object-fit:contain}
+.ft-pif-txt{font-size:.8rem;font-weight:700;color:#1a6b4a;letter-spacing:.01em}
+.ft-center-copy{font-size:.74rem;color:#888;font-weight:500;text-align:center}
+.ft-right{display:flex;align-items:center;gap:1.2rem}
+.ft-soc-icons{display:flex;gap:.8rem}
+.ft-si{width:28px;height:28px;display:flex;align-items:center;justify-content:center;color:#666;transition:color .25s}
+.ft-si:hover{color:#5b3de8}
+.ft-lean{height:42px;object-fit:contain}
+.phero{padding:9rem 4rem 4rem;position:relative;overflow:hidden;background:linear-gradient(155deg,var(--bg),var(--bg2))}
+.phero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 82% 35%,rgba(91,61,232,.15),transparent 62%)}
+.pfilt{display:flex;gap:.55rem;margin-top:2.2rem;flex-wrap:wrap}
+.pfb{padding:.42rem 1.1rem;font-size:.75rem;font-weight:700;color:var(--mut);border:1px solid var(--brd);border-radius:25px;cursor:none;transition:all .3s;background:transparent;font-family:var(--font)}
+.pfb.on,.pfb:hover{background:linear-gradient(135deg,var(--p),var(--pm));color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(91,61,232,.36)}
+.pcards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;padding:3.5rem 4rem}
+.pcard{border:1px solid var(--brd);background:var(--card);border-radius:10px;overflow:hidden;cursor:none;transition:all .4s var(--ease)}
+.pcard:hover{border-color:rgba(191,170,255,.32);transform:translateY(-6px);box-shadow:0 26px 60px rgba(0,0,0,.38)}
+[data-theme="light"] .pcard:hover{box-shadow:0 18px 48px rgba(91,61,232,.17)}
+.pimg{height:170px;overflow:hidden;background:linear-gradient(135deg,var(--bg2),var(--bg3));display:flex;align-items:center;justify-content:center}
+.pimg img{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease)}
+.pcard:hover .pimg img{transform:scale(1.07)}
+.pbody{padding:1.7rem}
+.pname{font-size:1.1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.52rem;color:var(--txt)}
+.pdesc{font-size:.82rem;color:var(--mut);line-height:1.84}
+.plink{display:inline-flex;align-items:center;gap:.35rem;margin-top:1rem;font-size:.76rem;color:var(--pg);font-weight:700}
+.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.3rem}
+.sc{border:1px solid var(--brd);background:var(--card);padding:2.6rem;border-radius:10px;cursor:none;transition:all .4s var(--ease);position:relative;overflow:hidden}
+.sc::after{content:'';position:absolute;bottom:0;right:0;width:0;height:2px;background:linear-gradient(90deg,transparent,var(--pg));transition:width .55s var(--ease)}
+.sc:hover{border-color:rgba(191,170,255,.3);transform:translateY(-5px);box-shadow:0 22px 55px rgba(0,0,0,.35)}.sc:hover::after{width:100%}
+[data-theme="light"] .sc:hover{box-shadow:0 14px 38px rgba(91,61,232,.15)}
+.sico{font-size:2.2rem;margin-bottom:1.4rem}.st{font-size:1.2rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.7rem;color:var(--txt)}.sd{font-size:.86rem;color:var(--mut);line-height:1.9}
+.tl-wrap{margin-top:4rem;position:relative}
+.tl-wrap::before{content:'';position:absolute;right:50%;top:0;bottom:0;width:1.5px;background:linear-gradient(to bottom,transparent,var(--p),transparent);opacity:.24}
+.tli{display:grid;grid-template-columns:1fr 52px 1fr;margin-bottom:2.6rem;opacity:0;transform:translateY(16px);transition:all .65s var(--ease)}
+.tli.vis{opacity:1;transform:translateY(0)}
+.tlc{background:var(--card);border:1px solid var(--brd);padding:1.8rem;border-radius:8px;transition:border-color .3s}.tlc:hover{border-color:rgba(191,170,255,.3)}
+.tld{display:flex;justify-content:center;align-items:center}
+.tldot{width:11px;height:11px;background:var(--pg);border:3px solid var(--bg);border-radius:50%;box-shadow:0 0 0 3px rgba(191,170,255,.18)}
+[data-theme="light"] .tldot{border-color:var(--bg2)}
+.tlp{font-size:.66rem;color:var(--pg);text-transform:uppercase;letter-spacing:.13em;font-weight:700;margin-bottom:.38rem}
+.tlt{font-size:.98rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.45rem;color:var(--txt)}
+.tld2{font-size:.81rem;color:var(--mut);line-height:1.8}
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.tc{border:1px solid var(--brd);background:var(--card);border-radius:10px;overflow:hidden;cursor:none;transition:all .4s var(--ease)}
+.tc:hover{border-color:rgba(191,170,255,.3);transform:translateY(-5px);box-shadow:0 18px 48px rgba(0,0,0,.35)}
+[data-theme="light"] .tc:hover{box-shadow:0 12px 34px rgba(91,61,232,.15)}
+.tc-img{height:155px;overflow:hidden;background:linear-gradient(135deg,var(--bg2),var(--bg3))}
+.tc-img img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .5s var(--ease)}.tc:hover .tc-img img{transform:scale(1.06)}
+.tc-body{padding:1.1rem;text-align:center}
+.tc-name{font-size:.88rem;font-weight:800;margin-bottom:.22rem;color:var(--txt)}
+.tc-role{font-size:.7rem;color:var(--mut);font-weight:600}
+.newsg{display:grid;grid-template-columns:2fr 1fr;gap:1.3rem}
+.nf{border:1px solid var(--brd);background:var(--card);border-radius:10px;overflow:hidden;cursor:none;transition:all .4s}.nf:hover{border-color:rgba(191,170,255,.3);box-shadow:0 22px 55px rgba(0,0,0,.35)}
+.nfimg{height:260px;overflow:hidden}.nfimg img{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease)}.nf:hover .nfimg img{transform:scale(1.04)}
+.nfb{padding:1.8rem}
+.ntag{font-size:.66rem;color:var(--pg);text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:.65rem}
+.nt{font-size:1.22rem;font-weight:800;line-height:1.35;letter-spacing:-.02em;margin-bottom:.65rem;color:var(--txt)}
+.nex{font-size:.84rem;color:var(--mut);line-height:1.84}.nd{font-size:.68rem;color:var(--mut);margin-top:.9rem;font-weight:600}
+.nside{display:flex;flex-direction:column;gap:1.1rem}
+.ns{border:1px solid var(--brd);background:var(--card);border-radius:8px;overflow:hidden;cursor:none;display:flex;transition:all .4s}.ns:hover{border-color:rgba(191,170,255,.3)}
+.nsimg{width:85px;flex-shrink:0;overflow:hidden;background:var(--bg2)}
+.nsimg img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}.ns:hover .nsimg img{transform:scale(1.08)}
+.nsb{padding:.9rem 1.1rem}
+.nst{font-size:.84rem;font-weight:700;line-height:1.4;margin-bottom:.28rem;color:var(--txt)}
+.nsd{font-size:.68rem;color:var(--mut);font-weight:600}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem}
+.ciw{display:flex;gap:.9rem;align-items:flex-start;margin-bottom:1.8rem}
+.cico{width:42px;height:42px;flex-shrink:0;background:var(--pa);border:1px solid var(--brd);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.cico svg{width:18px;height:18px;stroke:var(--pg);fill:none;stroke-width:1.5}
+.cilbl{font-size:.66rem;color:var(--mut);text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:.22rem}
+.cival{font-size:.92rem;font-weight:700;color:var(--txt)}
+.fg{margin-bottom:1.3rem}.fl{font-size:.76rem;color:var(--txt2);font-weight:700;margin-bottom:.45rem;display:block}
+.fi{width:100%;background:var(--card);border:1.5px solid var(--brd);color:var(--txt);padding:.82rem 1.05rem;border-radius:8px;font-family:var(--font);font-size:.88rem;transition:border-color .3s;outline:none}
+.fi:focus{border-color:var(--pg)}.fi::placeholder{color:var(--mut)}textarea.fi{min-height:125px;resize:vertical}[data-theme="light"] .fi{background:#fff}
+.ai-btn{position:fixed;bottom:5.8rem;left:2rem;z-index:850;display:flex;align-items:center;gap:.6rem;background:linear-gradient(135deg,var(--p),var(--pm));color:#fff;border:none;border-radius:50px;padding:.7rem 1.2rem .7rem .9rem;cursor:none;box-shadow:0 8px 28px rgba(91,61,232,.55);transition:all .35s var(--ease);animation:pBtn 3s ease-in-out infinite}
+.ai-btn:hover{transform:scale(1.05);box-shadow:0 12px 36px rgba(91,61,232,.7)}
+@keyframes pBtn{0%,100%{box-shadow:0 8px 28px rgba(91,61,232,.55)}50%{box-shadow:0 8px 40px rgba(91,61,232,.8),0 0 0 8px rgba(91,61,232,.1)}}
+.ai-btn-ic{width:30px;height:30px;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ai-btn-ic svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2}
+.ai-btn-lbl{font-size:.8rem;font-weight:700;white-space:nowrap}
+.ai-btn-bdg{background:rgba(255,255,255,.25);border-radius:10px;font-size:.6rem;font-weight:800;padding:.1rem .4rem;letter-spacing:.05em}
+.chat-panel{position:fixed;bottom:8.5rem;left:2rem;z-index:849;width:340px;background:var(--card);border:1px solid var(--brd);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.5);overflow:hidden;display:none;flex-direction:column;animation:slideUp .4s var(--ease)}
+.chat-panel.open{display:flex}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.chat-head{background:linear-gradient(135deg,var(--p),var(--pm));padding:1.1rem 1.3rem;display:flex;align-items:center;gap:.8rem}
+.chat-av{width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-av svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.8}
+.chat-hi{flex:1}.chat-hn{font-size:.9rem;font-weight:800;color:#fff}
+.chat-hs{display:flex;align-items:center;gap:.35rem;margin-top:.1rem}
+.chat-hd{width:6px;height:6px;background:#4ade80;border-radius:50%;animation:bk 2s infinite}
+.chat-hsub{font-size:.66rem;color:rgba(255,255,255,.72)}
+.chat-close{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;cursor:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;transition:background .25s;flex-shrink:0}.chat-close:hover{background:rgba(255,255,255,.28)}
+.chat-msgs{flex:1;max-height:290px;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.7rem}
+.chat-msgs::-webkit-scrollbar{width:2px}.chat-msgs::-webkit-scrollbar-thumb{background:var(--brd);border-radius:2px}
+.cmsg{max-width:86%;padding:.65rem .95rem;border-radius:14px;font-size:.8rem;line-height:1.6;word-break:break-word}
+.cmsg.bot{background:var(--pa);color:var(--txt2);border-radius:14px 14px 14px 3px;align-self:flex-start;border:1px solid rgba(191,170,255,.1)}
+.cmsg.user{background:linear-gradient(135deg,var(--p),var(--pm));color:#fff;border-radius:14px 14px 3px 14px;align-self:flex-end}
+.cmsg.typing{background:var(--pa);color:var(--mut);align-self:flex-start}
+.chat-sug-wrap{padding:.5rem 1rem .6rem;display:flex;flex-wrap:wrap;gap:.4rem;border-top:1px solid var(--brd)}
+.csug{font-size:.68rem;color:var(--pg);border:1px solid rgba(191,170,255,.22);background:var(--pa);padding:.26rem .62rem;border-radius:12px;cursor:none;transition:all .25s;font-family:var(--font)}
+.csug:hover{background:rgba(91,61,232,.22)}
+.chat-inp-row{display:flex;gap:.5rem;padding:.8rem 1rem;border-top:1px solid var(--brd)}
+.chat-fi{flex:1;background:var(--bg2);border:1.5px solid var(--brd);color:var(--txt);padding:.48rem .75rem;border-radius:10px;font-family:var(--font);font-size:.8rem;outline:none;transition:border-color .3s}
+.chat-fi:focus{border-color:var(--pg)}.chat-fi::placeholder{color:var(--mut)}
+.chat-send{width:34px;height:34px;background:linear-gradient(135deg,var(--p),var(--pm));border:none;border-radius:10px;cursor:none;display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0}
+.chat-send:hover{transform:scale(1.08)}.chat-send svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .72s var(--ease),transform .72s var(--ease)}
+.rv.vis{opacity:1;transform:translateY(0)}
+.partners-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1.2rem;margin-top:3rem}
+.partner-card{aspect-ratio:3/2;border:1px solid var(--brd);background:var(--card);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:1.4rem;cursor:none;transition:all .4s var(--ease);position:relative;overflow:hidden}
+.partner-card:hover{border-color:rgba(191,170,255,.35);transform:translateY(-5px);box-shadow:0 18px 44px rgba(0,0,0,.32)}
+[data-theme="light"] .partner-card:hover{box-shadow:0 14px 34px rgba(91,61,232,.14)}
+.partner-card svg,.partner-card img{max-width:100%;max-height:100%;width:auto;height:auto;transition:transform .4s;opacity:.85}
+.partner-card:hover svg,.partner-card:hover img{transform:scale(1.06);opacity:1}
+@media(max-width:960px){.partners-grid{grid-template-columns:repeat(2,1fr)}}
+[data-lang="en"] [data-ar]{display:none}[data-lang="ar"] [data-en]{display:none}
+@media(max-width:960px){
+  nav{padding:.9rem 1.2rem}.nlinks{display:none}
+  .s,.phero,.cta{padding:5rem 1.4rem}.pcards{padding:3rem 1.4rem;grid-template-columns:1fr}
+  .hero{padding:7rem 1.4rem 4rem}
+  .hstats,.pgrid,.ecards,.igrid,.sgrid,.team,.newsg,.cgrid,.impact-map-wrap{grid-template-columns:1fr}
+  .photos{grid-template-columns:1fr 1fr;grid-auto-rows:175px}.phi{grid-column:auto!important;grid-row:auto!important}
+  .jw::before,.tl-wrap::before{display:none}.ji,.tli{grid-template-columns:1fr}.jdw,.tld{display:none}
+  .footer{flex-direction:column;gap:.8rem;padding:1rem 1.2rem;text-align:center}
+  .dock{gap:.2rem;padding:.28rem .38rem}.dbn{padding:.3rem .55rem;font-size:.7rem}
+  .chat-panel{left:.8rem;width:calc(100vw - 1.6rem)}.ai-btn{left:.8rem;bottom:5.2rem}
+}
+</style>
+</head>
+<body>
+<div id="C1"></div><div id="C2"></div>
+<button class="ai-btn" id="chatBtn">
+  <div class="ai-btn-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+  <span class="ai-btn-lbl" data-ar>مساعد التنقل</span><span class="ai-btn-lbl" data-en>Help & Guide</span>
+  <span class="ai-btn-bdg">FAQ</span>
+</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="chat-av"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+    <div class="chat-hi"><div class="chat-hn" data-ar>مساعد التنقل والمساعدة</div><div class="chat-hn" data-en>Help & Navigation</div><div class="chat-hs"><div class="chat-hd"></div><div class="chat-hsub" data-ar>الأسئلة الشائعة والتنقل</div><div class="chat-hsub" data-en>FAQ & site navigation</div></div></div>
+    <button class="chat-close" id="chatClose">×</button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="cmsg bot" data-ar>أهلاً بك! 👋 أنا هنا لمساعدتك على التنقل في الموقع والإجابة على أسئلتك الشائعة — أين تجد المنتجات، كيف تتواصل معنا، الوظائف، وغيرها.</div>
+    <div class="cmsg bot" data-en>Welcome! 👋 I'm here to help you navigate the site and answer common questions — where to find products, how to contact us, careers, and more.</div>
+  </div>
+  <div class="chat-sug-wrap" id="chatSugs">
+    <button class="csug" data-ar onclick="sendSug(this)">وين ألقى المنتجات؟</button>
+    <button class="csug" data-en onclick="sendSug(this)">Where are the products?</button>
+    <button class="csug" data-ar onclick="sendSug(this)">كيف أتواصل معكم؟</button>
+    <button class="csug" data-en onclick="sendSug(this)">How do I contact you?</button>
+    <button class="csug" data-ar onclick="sendSug(this)">عندكم وظائف؟</button>
+    <button class="csug" data-en onclick="sendSug(this)">Do you have careers?</button>
+  </div>
+  <div class="chat-inp-row">
+    <input class="chat-fi" id="chatInput">
+    <button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+<nav id="nav">
+  <div class="nlogo">
+    <img src="https://lean.sa/images/LEAN-LOGO.svg" class="nlogo-img" alt="Lean" onerror="this.src='https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/ivahp1h1ivw3qittkk9a'">
+    <div class="nlogo-name">
+      <div class="nlogo-main nlogo-ar">لين لخدمات الأعمال</div>
+      <div class="nlogo-main nlogo-en">Lean Business Services</div>
+      <div class="nlogo-sub nlogo-ar">المُمكّن الرقمي للقطاع الصحي</div>
+      <div class="nlogo-sub nlogo-en">Digital Enabler of Healthcare</div>
+    </div>
+  </div>
+  <ul class="nlinks">
+    <li><a href="#" data-p="home" class="on" onclick="go('home',this);return false"><span data-ar>الرئيسية</span><span data-en>Home</span></a></li>
+    <li><a href="#" data-p="prod" onclick="go('prod',this);return false"><span data-ar>المنتجات</span><span data-en>Products</span></a></li>
+    <li><a href="#" data-p="sol" onclick="go('sol',this);return false"><span data-ar>الحلول</span><span data-en>Solutions</span></a></li>
+    <li><a href="#" data-p="news" onclick="go('news',this);return false"><span data-ar>الأخبار والمقالات</span><span data-en>News & Articles</span></a></li>
+    <li><a href="#" data-p="about" onclick="go('about',this);return false"><span data-ar>عن لين</span><span data-en>About Lean</span></a></li>
+    <li><a href="#"><span data-ar>الوظائف</span><span data-en>Careers</span></a></li>
+    <li><a href="#"><span data-ar>التقارير</span><span data-en>Reports</span></a></li>
+    <li><a href="#"><span data-ar>الموردون</span><span data-en>Vendors</span></a></li>
+    <li><a href="#" data-p="contact" class="ncta" onclick="go('contact',this);return false"><span data-ar>تواصل معنا</span><span data-en>Contact Us</span></a></li>
+  </ul>
+  <div class="nctrl">
+    <div class="ttgl" id="themeBtn"><div class="ttgl-i on" id="moonI">🌙</div><div class="ttgl-i" id="sunI">☀️</div></div>
+    <button class="nlang" id="langBtn">EN</button>
+  </div>
+</nav>
+<div class="dock">
+  <button class="dbn on" id="db-home" onclick="go('home')"><span data-ar>الرئيسية</span><span data-en>Home</span></button>
+  <button class="dbn" id="db-prod" onclick="go('prod')"><span data-ar>المنتجات</span><span data-en>Products</span></button>
+  <button class="dbn" id="db-sol" onclick="go('sol')"><span data-ar>الحلول</span><span data-en>Solutions</span></button>
+  <button class="dbn" id="db-about" onclick="go('about')"><span data-ar>عن لين</span><span data-en>About</span></button>
+  <button class="dbn" id="db-news" onclick="go('news')"><span data-ar>الأخبار</span><span data-en>News</span></button>
+  <button class="dbn" id="db-contact" onclick="go('contact')"><span data-ar>تواصل</span><span data-en>Contact</span></button>
+</div>
+<div class="pg on" id="p-home">
+<section class="hero">
+  <div class="hbg-d"></div><div class="hbg-l"></div>
+  <div class="orb o1"></div><div class="orb o2"></div>
+  <svg class="dna-bg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="sg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#9ac0ff"/><stop offset="35%" stop-color="#aa99ff"/><stop offset="75%" stop-color="#cc75ff"/><stop offset="100%" stop-color="#ff75cc"/></linearGradient>
+      <linearGradient id="sg2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#75aaff"/><stop offset="50%" stop-color="#8050d8"/><stop offset="100%" stop-color="#b560ff"/></linearGradient>
+      <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      <filter id="sglow"><feGaussianBlur stdDeviation="12"/></filter>
+    </defs>
+    <ellipse cx="980" cy="450" rx="500" ry="430" fill="rgba(88,50,200,.08)" filter="url(#sglow)"><animate attributeName="rx" values="500;550;500" dur="8s" repeatCount="indefinite"/></ellipse>
+    <path filter="url(#glow)" stroke="url(#sg1)" stroke-width="12" fill="none" stroke-linecap="round" opacity=".92"><animate attributeName="d" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" values="M700,0 C785,90 945,90 1030,0 C1115,-90 1275,-90 1360,0 C1445,90 1445,240 1360,330 C1275,420 1115,420 1030,330 C945,240 785,240 700,330 C615,420 615,570 700,660 C785,750 945,750 1030,660 C1115,570 1275,570 1360,660 C1445,750 1445,900 1360,990;M700,0 C785,90 945,90 1030,0 C1115,-90 1275,-90 1360,0 C1445,90 1445,240 1360,330 C1275,420 1115,420 1030,330 C945,240 785,240 700,330 C615,420 615,570 700,660 C785,750 945,750 1030,660 C1115,570 1275,570 1360,660 C1445,750 1445,900 1360,990;M700,0 C785,90 945,90 1030,0 C1115,-90 1275,-90 1360,0 C1445,90 1445,240 1360,330 C1275,420 1115,420 1030,330 C945,240 785,240 700,330 C615,420 615,570 700,660 C785,750 945,750 1030,660 C1115,570 1275,570 1360,660 C1445,750 1445,900 1360,990"/></path>
+    <path filter="url(#glow)" stroke="url(#sg2)" stroke-width="12" fill="none" stroke-linecap="round" opacity=".78"><animate attributeName="d" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" values="M1360,0 C1275,90 1115,90 1030,0 C945,-90 785,-90 700,0 C615,90 615,240 700,330 C785,420 945,420 1030,330 C1115,240 1275,240 1360,330 C1445,420 1445,570 1360,660 C1275,750 1115,750 1030,660 C945,570 785,570 700,660 C615,750 615,900 700,990;M1360,0 C1275,90 1115,90 1030,0 C945,-90 785,-90 700,0 C615,90 615,240 700,330 C785,420 945,420 1030,330 C1115,240 1275,240 1360,330 C1445,420 1445,570 1360,660 C1275,750 1115,750 1030,660 C945,570 785,570 700,660 C615,750 615,900 700,990;M1360,0 C1275,90 1115,90 1030,0 C945,-90 785,-90 700,0 C615,90 615,240 700,330 C785,420 945,420 1030,330 C1115,240 1275,240 1360,330 C1445,420 1445,570 1360,660 C1275,750 1115,750 1030,660 C945,570 785,570 700,660 C615,750 615,900 700,990"/></path>
+    <g filter="url(#glow)" opacity=".72">
+      <line x1="700" y1="0" x2="1360" y2="0" stroke="rgba(175,152,255,.7)" stroke-width="5" stroke-linecap="round"><animate attributeName="x1" values="700;1360;700" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="x2" values="1360;700;1360" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="opacity" values=".1;.95;.1" dur="1.6s" repeatCount="indefinite" begin="0s"/></line>
+      <line x1="1030" y1="165" x2="1030" y2="165" stroke="rgba(200,145,255,.7)" stroke-width="5" stroke-linecap="round"><animate attributeName="x1" values="915;1145;915" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="x2" values="1145;915;1145" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="opacity" values=".1;.95;.1" dur="1.6s" repeatCount="indefinite" begin=".4s"/></line>
+      <line x1="1030" y1="330" x2="1030" y2="330" stroke="rgba(152,200,255,.7)" stroke-width="5" stroke-linecap="round"><animate attributeName="x1" values="700;1360;700" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="x2" values="1360;700;1360" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="opacity" values=".1;.95;.1" dur="1.6s" repeatCount="indefinite" begin=".8s"/></line>
+      <line x1="1030" y1="495" x2="1030" y2="495" stroke="rgba(175,152,255,.7)" stroke-width="5" stroke-linecap="round"><animate attributeName="x1" values="915;1145;915" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="x2" values="1145;915;1145" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="opacity" values=".1;.95;.1" dur="1.6s" repeatCount="indefinite" begin="1.2s"/></line>
+      <line x1="1030" y1="660" x2="1030" y2="660" stroke="rgba(152,175,255,.7)" stroke-width="5" stroke-linecap="round"><animate attributeName="x1" values="700;1360;700" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="x2" values="1360;700;1360" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="opacity" values=".1;.95;.1" dur="1.6s" repeatCount="indefinite" begin="1.6s"/></line>
+      <line x1="1030" y1="825" x2="1030" y2="825" stroke="rgba(200,145,255,.7)" stroke-width="5" stroke-linecap="round"><animate attributeName="x1" values="915;1145;915" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="x2" values="1145;915;1145" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><animate attributeName="opacity" values=".1;.95;.1" dur="1.6s" repeatCount="indefinite" begin="2s"/></line>
+    </g>
+    <circle r="7" fill="rgba(198,175,255,.95)" filter="url(#glow)"><animateMotion dur="9s" repeatCount="indefinite" path="M700,0 C785,90 945,90 1030,0 C1115,-90 1275,-90 1360,0 C1445,90 1445,240 1360,330 C1275,420 1115,420 1030,330 C945,240 785,240 700,330"/><animate attributeName="opacity" values="0;1;0" dur="9s" repeatCount="indefinite"/></circle>
+    <circle r="5.5" fill="rgba(152,200,255,.9)" filter="url(#glow)"><animateMotion dur="9s" repeatCount="indefinite" begin="4.5s" path="M1360,0 C1275,90 1115,90 1030,0 C945,-90 785,-90 700,0 C615,90 615,240 700,330 C785,420 945,420 1030,330"/><animate attributeName="opacity" values="0;.9;0" dur="9s" repeatCount="indefinite" begin="4.5s"/></circle>
+    <path stroke="rgba(115,85,215,.3)" stroke-width="6" fill="none" stroke-linecap="round"><animate attributeName="d" dur="9s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" values="M155,0 C215,70 335,70 395,0 C455,-70 575,-70 635,0 C695,70 695,200 635,270 C575,340 455,340 395,270 C335,200 215,200 155,270 C95,340 95,470 155,540 C215,610 335,610 395,540 C455,470 575,470 635,540 C695,610 695,740 635,810;M155,0 C215,70 335,70 395,0 C455,-70 575,-70 635,0 C695,70 695,200 635,270 C575,340 455,340 395,270 C335,200 215,200 155,270 C95,340 95,470 155,540 C215,610 335,610 395,540 C455,470 575,470 635,540 C695,610 695,740 635,810;M155,0 C215,70 335,70 395,0 C455,-70 575,-70 635,0 C695,70 695,200 635,270 C575,340 455,340 395,270 C335,200 215,200 155,270 C95,340 95,470 155,540 C215,610 335,610 395,540 C455,470 575,470 635,540 C695,610 695,740 635,810"/></path>
+  </svg>
+  <div class="hero-ov"></div>
+  <div class="hcnt">
+    <div class="hpill"><div class="hdot"></div><span data-ar>شريك التحوّل الصحي · رؤية 2030</span><span data-en>Healthcare Transformation Partner · Vision 2030</span></div>
+    <h1 class="hh1">
+      <span data-ar>نُحوّل<br><span class="gt">الرعاية الصحية</span><br><span class="ot">للمستقبل</span></span>
+      <span data-en>Transforming<br><span class="gt">Healthcare</span><br><span class="ot">for Tomorrow</span></span>
+    </h1>
+    <div class="hbtns">
+      <button class="bp" onclick="go('contact')"><span data-ar>احجز عرضاً تجريبياً</span><span data-en>Book a Demo</span></button>
+      <div class="bs" onclick="go('prod')"><span data-ar>اكتشف المنتجات</span><span data-en>Explore Products</span><div class="bs-c">←</div></div>
+    </div>
+    <div class="hstats">
+      <div class="hst"><div class="hsn" data-ar>+177م</div><div class="hsn" data-en>+177M</div><div class="hsl" data-ar>عملية لخدمة الأفراد</div><div class="hsl" data-en>Individual operations</div></div>
+      <div class="hst"><div class="hsn" data-ar>+21م</div><div class="hsn" data-en>+21M</div><div class="hsl" data-ar>عملية للممارسين</div><div class="hsl" data-en>Practitioner operations</div></div>
+      <div class="hst"><div class="hsn" data-ar>+251م</div><div class="hsn" data-en>+251M</div><div class="hsl" data-ar>عملية للمنشآت</div><div class="hsl" data-en>Facility operations</div></div>
+    </div>
+  </div>
+  <div class="shint"><div class="stxt" data-ar>استكشف</div><div class="stxt" data-en>Scroll</div><div class="sline"></div></div>
+</section>
+<div class="mq"><div class="mqt">
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>تكامل البيانات</span><span data-en>Data Integration</span></div>
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>ذكاء اصطناعي تنبؤي</span><span data-en>Predictive AI</span></div>
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>حلول رقمية متكاملة</span><span data-en>Integrated Digital Solutions</span></div>
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>علوم الحياة والصحة</span><span data-en>Health & Life Sciences</span></div>
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>رؤية 2030</span><span data-en>Vision 2030</span></div>
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>صحتي · صحة · أناة</span><span data-en>Sehhaty · Seha · Anat</span></div>
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>تكامل البيانات</span><span data-en>Data Integration</span></div>
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>ذكاء اصطناعي تنبؤي</span><span data-en>Predictive AI</span></div>
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>حلول رقمية متكاملة</span><span data-en>Integrated Digital Solutions</span></div>
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>علوم الحياة والصحة</span><span data-en>Health & Life Sciences</span></div>
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>رؤية 2030</span><span data-en>Vision 2030</span></div>
+  <div class="mqi"><span class="mqs">◈</span><span data-ar>صحتي · صحة · أناة</span><span data-en>Sehhaty · Seha · Anat</span></div>
+</div></div>
+<section class="s salt rv">
+  <div style="max-width:560px;margin-bottom:3.8rem">
+    <div class="lbl"><span data-ar>ما يميّز لين</span><span data-en>What Sets Lean Apart</span></div>
+    <h2 class="ttl"><span data-ar>أربع ركائز<br><span class="gt">تجعلنا الأول</span></span><span data-en>Four Pillars That Make<br><span class="gt">Us Leaders</span></span></h2>
+  </div>
+  <div class="pgrid">
+    <div class="pc"><div class="pn">01</div><div class="pi"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h8M4 18h8"/></svg></div><div class="pt" data-ar>تكامل البيانات</div><div class="pt" data-en>Data Integration</div><div class="pd" data-ar>نُحوّل المعلومات الخام إلى رؤى تُمكّن صنّاع القرار من رفع كفاءة الخدمات الصحية باستمرار.</div><div class="pd" data-en>We transform raw information into actionable insights that continuously elevate healthcare efficiency.</div></div>
+    <div class="pc"><div class="pn">02</div><div class="pi"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><div class="pt" data-ar>الذكاء الاصطناعي</div><div class="pt" data-en>Artificial Intelligence</div><div class="pd" data-ar>حلول ذكاء اصطناعي تتنبأ بالمخاطر الصحية وتدعم القرارات بجودة وكفاءة لم يشهدها القطاع.</div><div class="pd" data-en>AI solutions predicting health risks and supporting decisions with unprecedented quality.</div></div>
+    <div class="pc"><div class="pn">03</div><div class="pi"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg></div><div class="pt" data-ar>الحلول الرقمية</div><div class="pt" data-en>Digital Solutions</div><div class="pd" data-ar>خدمات متكاملة وتطبيقات مبتكرة تُمكّن الأفراد والممارسين والمنشآت من أفضل الحلول الرقمية.</div><div class="pd" data-en>Integrated services enabling individuals, practitioners, and facilities with cutting-edge solutions.</div></div>
+    <div class="pc"><div class="pn">04</div><div class="pi"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg></div><div class="pt" data-ar>الصحة وعلوم الحياة</div><div class="pt" data-en>Health & Life Sciences</div><div class="pd" data-ar>ربط البيانات الصحية الوطنية بمنصات رقمية وتحليلات متقدمة تدعم البحث والابتكار.</div><div class="pd" data-en>Connecting national health data with digital platforms and analytics for research and innovation.</div></div>
+  </div>
+</section>
+<section class="s rv">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1.5rem">
+    <div><div class="lbl"><span data-ar>المنظومة الصحية</span><span data-en>Health Ecosystem</span></div><h2 class="ttl"><span data-ar>منتجاتنا <span class="gt">الرائدة</span></span><span data-en>Our <span class="gt">Leading Products</span></span></h2></div>
+    <a href="#" onclick="go('prod');return false" style="color:var(--mut);font-size:.86rem;font-weight:700;display:flex;align-items:center;gap:.4rem;transition:color .3s" onmouseover="this.style.color='var(--pg)'" onmouseout="this.style.color='var(--mut)'"><span data-ar>جميع المنتجات ←</span><span data-en>All Products ←</span></a>
+  </div>
+  <div class="ecards">
+    <div class="ec">
+      <div class="ec-logo-box">
+        <svg viewBox="0 0 210 104" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(120,4)">
+            <rect x="40" y="90" width="20" height="6" rx="3" fill="#29abe2"/>
+            <rect x="34" y="81" width="30" height="6" rx="3" fill="#29abe2"/>
+            <rect x="29" y="72" width="40" height="6" rx="3" fill="#29abe2"/>
+            <rect x="24" y="63" width="28" height="6" rx="3" fill="#29abe2"/><rect x="56" y="63" width="16" height="6" rx="3" fill="#29abe2"/>
+            <rect x="20" y="54" width="20" height="6" rx="3" fill="#29abe2"/><rect x="58" y="54" width="18" height="6" rx="3" fill="#29abe2"/>
+            <rect x="18" y="45" width="14" height="6" rx="3" fill="#29abe2"/><rect x="36" y="45" width="11" height="6" rx="3" fill="#ec4899"/><rect x="62" y="45" width="22" height="6" rx="3" fill="#29abe2"/>
+            <rect x="20" y="36" width="13" height="6" rx="3" fill="#29abe2"/><rect x="49" y="40" width="9" height="6" rx="3" fill="#ec4899"/><rect x="68" y="36" width="24" height="6" rx="3" fill="#3bb4ec"/>
+            <rect x="74" y="27" width="24" height="6" rx="3" fill="#3bb4ec"/>
+            <rect x="80" y="18" width="24" height="6" rx="3" fill="#4dbef0"/>
+            <rect x="86" y="9" width="24" height="6" rx="3" fill="#4dbef0"/>
+          </g>
+          <text x="106" y="44" font-family="Cairo,sans-serif" font-size="24" font-weight="800" fill="var(--txt)" text-anchor="end">صحتي</text>
+          <text x="106" y="68" font-family="Cairo,sans-serif" font-size="15" font-weight="600" fill="var(--mut)" text-anchor="end">Sehhaty</text>
+          <line x1="113" y1="24" x2="113" y2="72" stroke="var(--mut)" stroke-width="1.2" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="ecb" data-ar>للأفراد</div><div class="ecb" data-en>For Individuals</div>
+      <div class="ect" data-ar>رفاهية الإنسان في كل خطوة</div><div class="ect" data-en>Individual wellbeing at every step</div>
+      <div class="ecd" data-ar>منصة رقمية شاملة تُعنى برفاهية الأفراد — حجز مواعيد، متابعة المؤشرات الحيوية، واستعراض التقارير الطبية.</div>
+      <div class="ecd" data-en>A comprehensive platform for individual wellbeing — appointments, vital signs tracking, and medical reports.</div>
+      <a href="#" class="ecl" onclick="go('prod');return false"><span data-ar>اكتشف المنصة ←</span><span data-en>Explore ←</span></a>
+    </div>
+    <div class="ec">
+      <div class="ec-logo-box">
+        <svg viewBox="0 0 210 104" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(120,4)">
+            <rect x="40" y="90" width="20" height="6" rx="3" fill="#3b7dd8"/>
+            <rect x="34" y="81" width="30" height="6" rx="3" fill="#3b7dd8"/>
+            <rect x="29" y="72" width="40" height="6" rx="3" fill="#3b7dd8"/>
+            <rect x="24" y="63" width="28" height="6" rx="3" fill="#3b7dd8"/><rect x="56" y="63" width="16" height="6" rx="3" fill="#3b7dd8"/>
+            <rect x="20" y="54" width="20" height="6" rx="3" fill="#3b7dd8"/><rect x="58" y="54" width="18" height="6" rx="3" fill="#4587e0"/>
+            <rect x="18" y="45" width="14" height="6" rx="3" fill="#3b7dd8"/><rect x="62" y="45" width="22" height="6" rx="3" fill="#4587e0"/>
+            <rect x="20" y="36" width="13" height="6" rx="3" fill="#3b7dd8"/><rect x="68" y="36" width="24" height="6" rx="3" fill="#5896ec"/>
+            <rect x="74" y="27" width="24" height="6" rx="3" fill="#5896ec"/>
+            <rect x="80" y="18" width="24" height="6" rx="3" fill="#6ba5f2"/>
+            <rect x="86" y="9" width="24" height="6" rx="3" fill="#6ba5f2"/>
+          </g>
+          <text x="106" y="44" font-family="Cairo,sans-serif" font-size="24" font-weight="800" fill="var(--txt)" text-anchor="end">صحة</text>
+          <text x="106" y="68" font-family="Cairo,sans-serif" font-size="15" font-weight="600" fill="var(--mut)" text-anchor="end">Seha</text>
+          <line x1="113" y1="24" x2="113" y2="72" stroke="var(--mut)" stroke-width="1.2" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="ecb" data-ar>للمنشآت</div><div class="ecb" data-en>For Facilities</div>
+      <div class="ect" data-ar>أتمتة الإجراءات الصحية</div><div class="ect" data-en>Automated healthcare procedures</div>
+      <div class="ecd" data-ar>منصة مُتخصّصة في أتمتة الإجراءات الصحية — تراخيص، فحوصات، وشهادات صحية لتعزيز كفاءة القطاع.</div>
+      <div class="ecd" data-en>A platform automating healthcare procedures — licensing, screenings, and certificates for sector efficiency.</div>
+      <a href="#" class="ecl" onclick="go('prod');return false"><span data-ar>اكتشف المنصة ←</span><span data-en>Explore ←</span></a>
+    </div>
+    <div class="ec">
+      <div class="ec-logo-box">
+        <svg viewBox="0 0 210 104" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(120,4)">
+            <rect x="40" y="90" width="20" height="6" rx="3" fill="#3cb89a"/>
+            <rect x="34" y="81" width="30" height="6" rx="3" fill="#3cb89a"/>
+            <rect x="29" y="72" width="40" height="6" rx="3" fill="#3cb89a"/>
+            <rect x="24" y="63" width="28" height="6" rx="3" fill="#3cb89a"/><rect x="56" y="63" width="16" height="6" rx="3" fill="#3cb89a"/>
+            <rect x="20" y="54" width="20" height="6" rx="3" fill="#3cb89a"/><rect x="58" y="54" width="18" height="6" rx="3" fill="#4ec8a8"/>
+            <rect x="18" y="45" width="14" height="6" rx="3" fill="#3cb89a"/><rect x="62" y="45" width="22" height="6" rx="3" fill="#4ec8a8"/>
+            <rect x="20" y="36" width="13" height="6" rx="3" fill="#3cb89a"/><rect x="68" y="36" width="24" height="6" rx="3" fill="#5fd2b6"/>
+            <rect x="74" y="27" width="24" height="6" rx="3" fill="#5fd2b6"/>
+            <rect x="80" y="18" width="24" height="6" rx="3" fill="#72dcc4"/>
+            <rect x="86" y="9" width="24" height="6" rx="3" fill="#72dcc4"/>
+          </g>
+          <text x="106" y="44" font-family="Cairo,sans-serif" font-size="24" font-weight="800" fill="var(--txt)" text-anchor="end">أناة</text>
+          <text x="106" y="68" font-family="Cairo,sans-serif" font-size="15" font-weight="600" fill="var(--mut)" text-anchor="end">Anat</text>
+          <line x1="113" y1="24" x2="113" y2="72" stroke="var(--mut)" stroke-width="1.2" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="ecb" data-ar>للممارسين</div><div class="ecb" data-en>For Practitioners</div>
+      <div class="ect" data-ar>المنصة الموحدة للممارسين</div><div class="ect" data-en>Unified practitioner platform</div>
+      <div class="ecd" data-ar>حلول متقدمة للممارسين الصحيين — خبير الصحة للممارسة المزدوجة، الفعاليات الطبية، والتأمين ضد الأخطاء.</div>
+      <div class="ecd" data-en>Advanced solutions for practitioners — dual practice expert, medical events, and malpractice insurance.</div>
+      <a href="#" class="ecl" onclick="go('prod');return false"><span data-ar>اكتشف المنصة ←</span><span data-en>Explore ←</span></a>
+    </div>
+  </div>
+</section>
+<section class="s salt ai-section rv">
+  <div style="text-align:center;max-width:620px;margin:0 auto 1rem">
+    <div class="lbl" style="justify-content:center"><span data-ar>ذكاء اصطناعي · حصري</span><span data-en>AI-Powered · Exclusive</span></div>
+    <h2 class="ttl"><span data-ar>المرشد <span class="gt">الذكي للخدمات</span></span><span data-en>Smart <span class="gt">Service Navigator</span></span></h2>
+    <p style="color:var(--mut);font-size:.92rem;margin-top:1rem;line-height:1.9"><span data-ar>أخبرنا من أنت وما الذي تبحث عنه، وسيرشدك الذكاء الاصطناعي إلى المنتج أو الخدمة الأنسب من منظومة لين</span><span data-en>Tell us who you are and what you need, and our AI will guide you to the most suitable Lean product or service</span></p>
+  </div>
+  <div class="ai-card">
+    <div class="ai-card-head">
+      <div class="ai-card-icon"><svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 0 0 1 1h3m10-11l2 2m-2-2v10a1 1 0 0 1-1 1h-3m-6 0a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1m-6 0h6"/></svg></div>
+      <div><div class="ai-card-title" data-ar>المرشد الذكي للخدمات</div><div class="ai-card-title" data-en>Smart Service Navigator</div><div class="ai-card-sub" data-ar>مدعوم بالذكاء الاصطناعي من لين</div><div class="ai-card-sub" data-en>Powered by Lean AI</div></div>
+      <div class="ai-card-badge"><span data-ar>مباشر</span><span data-en>Live</span></div>
+    </div>
+    <div class="ai-card-body">
+      <p class="ai-intro" data-ar>هل أنت فرد، أم تدير منشأة صحية، أم ممارس صحي؟ صِف احتياجك، وسيوجهك الذكاء الاصطناعي إلى المنتج أو الخدمة الأنسب من منظومة لين.</p>
+      <p class="ai-intro" data-en>Are you an individual, managing a facility, or a healthcare practitioner? Describe your need, and our AI will guide you to the right Lean product or service.</p>
+      <textarea class="ai-textarea" id="aiInput" data-ar-ph="مثال: أدير مستشفى وأبحث عن حل لأتمتة التراخيص والإجراءات..." data-en-ph="Example: I manage a hospital and need a solution to automate licensing and procedures..."></textarea>
+      <div class="ai-examples" id="aiExamples">
+        <button class="ai-ex" data-ar onclick="fillAi(this)">أنا فرد وأريد إدارة مواعيدي وخدماتي الصحية</button>
+        <button class="ai-ex" data-en onclick="fillAi(this)">I'm an individual managing my appointments</button>
+        <button class="ai-ex" data-ar onclick="fillAi(this)">أنا ممارس صحي أبحث عن منصة موحدة</button>
+        <button class="ai-ex" data-en onclick="fillAi(this)">I'm a practitioner seeking a unified platform</button>
+        <button class="ai-ex" data-ar onclick="fillAi(this)">منشأتي تحتاج تحليل بيانات وتقارير</button>
+        <button class="ai-ex" data-en onclick="fillAi(this)">My facility needs data analytics and reports</button>
+      </div>
+      <button class="ai-analyze-btn" id="aiBtn" onclick="analyzeAi()">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        <span data-ar>أرشدني للخدمة المناسبة</span><span data-en>Find My Service</span>
+      </button>
+      <div class="ai-result" id="aiResult"></div>
+      <p class="ai-disclaimer" data-ar>* أداة إرشادية ذكية توجهك إلى منتجات وخدمات لين الأنسب لاحتياجك.</p>
+      <p class="ai-disclaimer" data-en>* A smart guidance tool directing you to the Lean products and services best suited to your needs.</p>
+    </div>
+  </div>
+</section>
+<section class="s rv">
+  <div class="lbl"><span data-ar>من واقع عملنا</span><span data-en>From Our Work</span></div>
+  <h2 class="ttl"><span data-ar>أثر لين <span class="gt">في الصور</span></span><span data-en>Lean's Impact <span class="gt">in Pictures</span></span></h2>
+  <div class="photos">
+    <div class="phi" style="grid-column:1/8;grid-row:1"><img src="https://lean.sa/ar/images/Screen-Shot-2023-02-02-at-9.20.31-PM-p-1600.png" alt="لين" onerror="this.closest('.phi').style.cssText='background:linear-gradient(135deg,#121840,#0c1035);grid-column:1/8;grid-row:1';this.remove()"><div class="phi-ov"><div class="phi-lbl" data-ar>المنظومة الصحية</div><div class="phi-lbl" data-en>Health Ecosystem</div><div class="phi-t" data-ar>التحوّل الرقمي للرعاية الصحية</div><div class="phi-t" data-en>Digital healthcare transformation</div></div></div>
+    <div class="phi" style="grid-column:8/13;grid-row:1"><img src="https://lean.sa/ar/images/newborn.png" alt="الطفولة" onerror="this.closest('.phi').style.background='linear-gradient(135deg,#1a1060,#0c1035)';this.remove()"><div class="phi-ov"><div class="phi-lbl" data-ar>الطفولة</div><div class="phi-lbl" data-en>Childhood</div><div class="phi-t" data-ar>بداية الرحلة الصحية</div><div class="phi-t" data-en>Start of the health journey</div></div></div>
+    <div class="phi" style="grid-column:1/5;grid-row:2"><img src="https://lean.sa/ar/images/freepik__an-arab-man-in-his-20s-with-short-dark-hair-wearin__70836.png" alt="شباب" onerror="this.closest('.phi').style.background='linear-gradient(135deg,#0c1035,#121840)';this.remove()"><div class="phi-ov"><div class="phi-lbl" data-ar>الشباب</div><div class="phi-lbl" data-en>Youth</div><div class="phi-t" data-ar>النمو بثقة</div><div class="phi-t" data-en>Growing with confidence</div></div></div>
+    <div class="phi" style="grid-column:5/9;grid-row:2"><img src="https://lean.sa/ar/images/health-life-banner.png" alt="علوم الحياة" onerror="this.closest('.phi').style.background='linear-gradient(135deg,#181068,#0c1035)';this.remove()"><div class="phi-ov"><div class="phi-lbl" data-ar>علوم الحياة والصحة</div><div class="phi-lbl" data-en>Health & Life Sciences</div><div class="phi-t" data-ar>بيانات تدعم الابتكار</div><div class="phi-t" data-en>Data powering innovation</div></div></div>
+    <div class="phi" style="grid-column:9/13;grid-row:2"><img src="https://lean.sa/ar/images/freepik__candid-image-photography-natural-textures-highly-r__35402.png" alt="الشيخوخة" onerror="this.closest('.phi').style.background='linear-gradient(135deg,#121840,#0c1035)';this.remove()"><div class="phi-ov"><div class="phi-lbl" data-ar>الشيخوخة</div><div class="phi-lbl" data-en>Elderhood</div><div class="phi-t" data-ar>رعاية بامتداد الحياة</div><div class="phi-t" data-en>Lifelong care</div></div></div>
+  </div>
+</section>
+<section class="s salt rv">
+  <div class="lbl"><span data-ar>انتشارنا في المملكة</span><span data-en>Our Presence in KSA</span></div>
+  <h2 class="ttl"><span data-ar>أثر لين <span class="gt">في كل منطقة</span></span><span data-en>Lean's Impact <span class="gt">in Every Region</span></span></h2>
+  <div class="impact-map-wrap">
+    <div class="map-svg-box">
+      <svg class="ksa-svg" viewBox="0 0 600 560" xmlns="http://www.w3.org/2000/svg">
+        <path class="region-path" data-r="tabuk" d="M70,110 L150,80 L175,140 L130,185 L80,175 Z" onmouseenter="showRegion('tabuk',this)"/>
+        <path class="region-path" data-r="madinah" d="M130,185 L175,140 L240,165 L235,245 L165,260 Z" onmouseenter="showRegion('madinah',this)"/>
+        <path class="region-path" data-r="hail" d="M175,140 L255,120 L285,175 L240,165 Z" onmouseenter="showRegion('hail',this)"/>
+        <path class="region-path" data-r="jouf" d="M150,80 L240,60 L255,120 L175,140 Z" onmouseenter="showRegion('jouf',this)"/>
+        <path class="region-path" data-r="qassim" d="M255,120 L330,115 L350,180 L285,175 Z" onmouseenter="showRegion('qassim',this)"/>
+        <path class="region-path" data-r="riyadh" d="M285,175 L350,180 L420,210 L410,330 L300,335 L235,245 Z" onmouseenter="showRegion('riyadh',this)"/>
+        <path class="region-path" data-r="eastern" d="M350,180 L470,150 L530,250 L490,360 L410,330 L420,210 Z" onmouseenter="showRegion('eastern',this)"/>
+        <path class="region-path" data-r="makkah" d="M165,260 L235,245 L300,335 L255,400 L180,375 Z" onmouseenter="showRegion('makkah',this)"/>
+        <path class="region-path" data-r="baha" d="M180,375 L255,400 L245,440 L195,430 Z" onmouseenter="showRegion('baha',this)"/>
+        <path class="region-path" data-r="aseer" d="M195,430 L245,440 L300,335 L320,420 L270,490 L210,475 Z" onmouseenter="showRegion('aseer',this)"/>
+        <path class="region-path" data-r="najran" d="M270,490 L320,420 L400,440 L370,510 Z" onmouseenter="showRegion('najran',this)"/>
+        <path class="region-path" data-r="jizan" d="M210,475 L270,490 L255,525 L200,515 Z" onmouseenter="showRegion('jizan',this)"/>
+        <circle class="region-dot" cx="345" cy="270" r="5"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
+        <circle class="region-dot" cx="225" cy="320" r="4"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite" begin=".5s"/></circle>
+        <circle class="region-dot" cx="450" cy="260" r="4"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite" begin="1s"/></circle>
+      </svg>
+    </div>
+    <div class="impact-info">
+      <div class="impact-info-region" id="regName" data-ar>منطقة الرياض</div>
+      <div class="impact-info-num" id="regNum">+42م</div>
+      <div class="impact-info-label" id="regLabel" data-ar>عملية صحية رقمية في المنطقة</div>
+      <div class="impact-stats-row">
+        <div class="impact-stat"><div class="impact-stat-n" id="regFac">1,240+</div><div class="impact-stat-l" data-ar>منشأة صحية</div><div class="impact-stat-l" data-en>Facilities</div></div>
+        <div class="impact-stat"><div class="impact-stat-n" id="regPrac">38K+</div><div class="impact-stat-l" data-ar>ممارس صحي</div><div class="impact-stat-l" data-en>Practitioners</div></div>
+      </div>
+      <div class="impact-hint">👆 <span data-ar>حوّم على مناطق الخريطة لاستكشاف أثر لين</span><span data-en>Hover the map regions to explore Lean's impact</span></div>
+    </div>
+  </div>
+</section>
+<section class="s rv">
+  <div style="text-align:center;margin-bottom:.5rem">
+    <div class="lbl" style="justify-content:center"><span data-ar>رحلة الإنسان</span><span data-en>Human Journey</span></div>
+    <h2 class="ttl"><span data-ar>معك في كل <span class="gt">محطة من حياتك</span></span><span data-en>With You at Every <span class="gt">Stage of Life</span></span></h2>
+  </div>
+  <div class="jw">
+    <div class="ji"><div class="jc"><div class="jp" data-ar>المرحلة الأولى</div><div class="jp" data-en>Stage One</div><div class="jt" data-ar>الطفولة — بداية الرحلة</div><div class="jt" data-en>Childhood — The Beginning</div><div class="jde" data-ar>فحوصات حديثي الولادة، توثيق شهادات الميلاد، سجل التطعيمات الإلكتروني، والفحص الاستكشافي لطلاب المدارس.</div><div class="jde" data-en>Newborn screenings, birth certificates, vaccination registry, and school entry screenings.</div></div><div class="jdw"><div class="jd"></div></div><div></div></div>
+    <div class="ji r"><div></div><div class="jdw"><div class="jd"></div></div><div class="jc"><div class="jp" data-ar>المرحلة الثانية</div><div class="jp" data-en>Stage Two</div><div class="jt" data-ar>الشباب — النمو بثقة</div><div class="jt" data-en>Youth — Growing with Confidence</div><div class="jde" data-ar>فحوصات رخصة القيادة والتوظيف والزواج، متابعة المؤشرات الحيوية، والتوأم الرقمي للنصائح الصحية.</div><div class="jde" data-en>Driver's license, employment and marriage screenings, vitals monitoring, and digital twin advice.</div></div></div>
+    <div class="ji"><div class="jc"><div class="jp" data-ar>المرحلة الثالثة</div><div class="jp" data-en>Stage Three</div><div class="jt" data-ar>الشيخوخة — رعاية بامتداد الحياة</div><div class="jt" data-en>Elderhood — Lifelong Care</div><div class="jde" data-ar>تذكيرات الأدوية، مراقبة العلامات الحيوية، ربط الأجهزة الطبية، والاستشارات الافتراضية.</div><div class="jde" data-en>Medication reminders, vitals monitoring, device connectivity, and virtual consultations.</div></div><div class="jdw"><div class="jd"></div></div><div></div></div>
+  </div>
+</section>
+<section class="s salt rv">
+  <div style="text-align:center;margin-bottom:3.8rem">
+    <div class="lbl" style="justify-content:center"><span data-ar>الأثر الحقيقي</span><span data-en>Real Impact</span></div>
+    <h2 class="ttl"><span data-ar>أرقام تُجسّد <span class="gt">حجم التحوّل</span></span><span data-en>Numbers That Tell <span class="gt">the Story</span></span></h2>
+  </div>
+  <div class="igrid">
+    <div class="ic"><div class="icn" data-ar>+177م</div><div class="icn" data-en>+177M</div><div class="icl" data-ar>عملية لخدمة الأفراد</div><div class="icl" data-en>Operations serving individuals</div><div class="ics" data-ar>نهتم بكل مريض وكل زيارة</div><div class="ics" data-en>Caring for every patient</div></div>
+    <div class="ic"><div class="icn" data-ar>+21م</div><div class="icn" data-en>+21M</div><div class="icl" data-ar>عملية لخدمة الممارسين</div><div class="icl" data-en>Operations serving practitioners</div><div class="ics" data-ar>دعم مخصص للممارسين</div><div class="ics" data-en>Tailored practitioner support</div></div>
+    <div class="ic"><div class="icn" data-ar>+251م</div><div class="icn" data-en>+251M</div><div class="icl" data-ar>عملية لخدمة المنشآت</div><div class="icl" data-en>Operations serving facilities</div><div class="ics" data-ar>تسريع كفاءة النظام الصحي</div><div class="ics" data-en>Accelerating efficiency</div></div>
+  </div>
+</section>
+<section class="s rv">
+  <div style="text-align:center;margin-bottom:1rem">
+    <div class="lbl" style="justify-content:center"><span data-ar>شركاء النجاح</span><span data-en>Success Partners</span></div>
+    <h2 class="ttl"><span data-ar>نفخر <span class="gt">بشراكاتنا</span></span><span data-en>Proud of <span class="gt">Our Partners</span></span></h2>
+    <p style="color:var(--mut);font-size:.92rem;margin-top:1rem;max-width:520px;margin-inline:auto;line-height:1.9"><span data-ar>نعمل جنباً إلى جنب مع كبرى الجهات الصحية والحكومية في المملكة لتحقيق التحوّل الصحي الرقمي</span><span data-en>We work hand in hand with leading health and government entities in Saudi Arabia to drive digital health transformation</span></p>
+  </div>
+  <div class="partners-grid">
+    <div class="partner-card" title="وزارة الصحة">
+      <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 6 C58 14 56 18 52 22 C57 20 59 18 60 14 C61 18 63 20 68 22 C64 18 62 14 60 6Z" fill="#1a7a52"/>
+        <path d="M60 10 C59 16 57 19 54 22 M60 10 C61 16 63 19 66 22" stroke="#1a7a52" stroke-width="1.5" fill="none"/>
+        <path d="M28 34 Q45 24 60 38 Q75 52 92 34" stroke="#b89a4e" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M28 34 Q45 52 60 38 Q75 24 92 34" stroke="#1a7a52" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M52 32 L68 46 L60 52 Z M68 32 L52 46 L60 52Z" fill="#b89a4e"/>
+        <rect x="33" y="36" width="4" height="4" rx="1" fill="#1a7a52"/><rect x="39" y="36" width="4" height="4" rx="1" fill="#1a7a52"/>
+        <text x="60" y="66" font-family="Cairo,sans-serif" font-size="9" font-weight="700" fill="#1a7a52" text-anchor="middle">وزارة الصحة</text>
+        <text x="60" y="76" font-family="Cairo,sans-serif" font-size="6" font-weight="500" fill="#b89a4e" text-anchor="middle">Ministry of Health</text>
+      </svg>
+    </div>
+    <div class="partner-card" title="الصحة القابضة">
+      <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(60,28)" fill="none" stroke="#4a90c2" stroke-width="2.2" stroke-linecap="round">
+          <path d="M0,-16 C4,-10 4,-4 0,-2 C-4,-4 -4,-10 0,-16Z" fill="#4a90c2" stroke="none"/>
+          <path d="M15,-5 C9,-3 4,1 2,-1 C5,-5 11,-7 15,-5Z" fill="#4a90c2" stroke="none"/>
+          <path d="M9,13 C7,7 3,3 1,5 C2,10 6,14 9,13Z" fill="#4a90c2" stroke="none"/>
+          <path d="M-9,13 C-7,7 -3,3 -1,5 C-2,10 -6,14 -9,13Z" fill="#4a90c2" stroke="none"/>
+          <path d="M-15,-5 C-9,-3 -4,1 -2,-1 C-5,-5 -11,-7 -15,-5Z" fill="#4a90c2" stroke="none"/>
+          <circle cx="0" cy="0" r="3.5" fill="none" stroke="#4a90c2" stroke-width="2"/>
+        </g>
+        <text x="60" y="62" font-family="Cairo,sans-serif" font-size="9" font-weight="700" fill="#4a90c2" text-anchor="middle">الصحة القابضة</text>
+        <text x="60" y="73" font-family="Cairo,sans-serif" font-size="6" font-weight="500" fill="#5a9fcf" text-anchor="middle">Health Holding</text>
+      </svg>
+    </div>
+    <div class="partner-card" title="مجلس الضمان الصحي">
+      <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="dmnG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0a5fb0"/><stop offset="100%" stop-color="#16c79a"/></linearGradient></defs>
+        <text x="60" y="40" font-family="Cairo,sans-serif" font-size="30" font-weight="900" fill="url(#dmnG)" text-anchor="middle">ضمان</text>
+        <text x="60" y="58" font-family="Cairo,sans-serif" font-size="8" font-weight="700" fill="#0a3d6e" text-anchor="middle">مجلس الضمان الصحي</text>
+        <text x="60" y="69" font-family="Cairo,sans-serif" font-size="5.5" font-weight="600" fill="#0a3d6e" text-anchor="middle">Council of Health Insurance</text>
+      </svg>
+    </div>
+    <div class="partner-card" title="مركز التأمين الصحي الوطني">
+      <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(60,26)" fill="#7fa8b8">
+          <circle cx="0" cy="-13" r="3"/><circle cx="11" cy="-7" r="3"/><circle cx="11" cy="7" r="3"/><circle cx="0" cy="13" r="3"/><circle cx="-11" cy="7" r="3"/><circle cx="-11" cy="-7" r="3"/>
+          <path d="M0,-9 L0,-3 M8,-5 L3,-2 M8,5 L3,2 M0,9 L0,3 M-8,5 L-3,2 M-8,-5 L-3,-2" stroke="#5a8294" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="2.5" fill="#5a8294"/>
+        </g>
+        <text x="60" y="58" font-family="Cairo,sans-serif" font-size="8" font-weight="700" fill="#5a8294" text-anchor="middle">مركز التأمين الصحي الوطني</text>
+        <text x="60" y="69" font-family="Cairo,sans-serif" font-size="5" font-weight="500" fill="#7fa8b8" text-anchor="middle">Center for National Health Insurance</text>
+      </svg>
+    </div>
+    <div class="partner-card" title="علم">
+      <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(38,40)">
+          <path d="M-8,-14 L2,-9 L2,1 L-8,-4Z" fill="#7d3fc0"/>
+          <path d="M-18,-8 L-8,-3 L-8,7 L-18,2Z" fill="#9b5fd0"/>
+          <path d="M2,-9 L12,-4 L12,6 L2,1Z" fill="#2a8fd0"/>
+          <path d="M-8,-4 L2,1 L2,11 L-8,6Z" fill="#f0663c"/>
+          <path d="M-18,2 L-8,7 L-18,12Z" fill="#f9a86b"/>
+          <path d="M2,1 L12,6 L2,11Z" fill="#f9a86b"/>
+        </g>
+        <text x="78" y="38" font-family="Cairo,sans-serif" font-size="20" font-weight="900" fill="#0a2d5e" text-anchor="middle">علم</text>
+        <text x="78" y="54" font-family="Cairo,sans-serif" font-size="13" font-weight="800" fill="#0a2d5e" text-anchor="middle">elm</text>
+      </svg>
+    </div>
+    <div class="partner-card" title="وزارة الدفاع">
+      <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="42" cy="34" r="24" fill="none" stroke="#8a9499" stroke-width="1.5"/>
+        <g transform="translate(42,34)">
+          <path d="M-18,0 A18,18 0 0,1 18,0" fill="none" stroke="#2a7a4a" stroke-width="2.5"/>
+          <path d="M-2,-22 L-4,-18 L0,-20 L4,-18 L2,-22Z" fill="#c5a253"/>
+          <line x1="0" y1="-16" x2="0" y2="12" stroke="#8a9499" stroke-width="2"/>
+          <line x1="-12" y1="-8" x2="12" y2="14" stroke="#9aa4a9" stroke-width="2"/>
+          <line x1="12" y1="-8" x2="-12" y2="14" stroke="#9aa4a9" stroke-width="2"/>
+          <circle cx="0" cy="2" r="6" fill="#fff" stroke="#2a7a4a" stroke-width="1"/>
+          <path d="M0,-2 L0,5 M-3,4 L3,4" stroke="#2a7a4a" stroke-width="1.2"/>
+          <path d="M-6,16 L0,12 L6,16 L0,20Z" fill="#c0392b"/>
+        </g>
+        <text x="60" y="66" font-family="Cairo,sans-serif" font-size="9" font-weight="700" fill="#5a6469" text-anchor="middle">وزارة الدفاع</text>
+        <text x="60" y="76" font-family="Cairo,sans-serif" font-size="5.5" font-weight="500" fill="#8a9499" text-anchor="middle">Ministry of Defense</text>
+      </svg>
+    </div>
+  </div>
+</section>
+<section class="cta rv">
+  <h2 class="ctah"><span data-ar>مستعد للانضمام<br>إلى <span class="gt">منظومة</span><br><span class="ot">الصحة الرقمية؟</span></span><span data-en>Ready to Join<br>the <span class="gt">Digital Health</span><br><span class="ot">Ecosystem?</span></span></h2>
+  <p class="ctas"><span data-ar>انضم إلى أكبر منظومة صحية رقمية في المملكة — وكن جزءاً من التحوّل.</span><span data-en>Join the largest digital health ecosystem in Saudi Arabia.</span></p>
+  <button class="bp" style="font-size:1rem;padding:1.1rem 3.5rem" onclick="go('contact')"><span data-ar>احجز عرضاً الآن</span><span data-en>Book a Demo Now</span></button>
+</section>
+<footer class="footer">
+  <div class="ft-left">
+    <svg class="ft-pif" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="45" cy="45" r="43" fill="none" stroke="#1a7a52" stroke-width="2.5"/>
+      <circle cx="45" cy="45" r="34" fill="none" stroke="#1a7a52" stroke-width="1.5"/>
+      <path d="M45 30 L45 58" stroke="#c5a253" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M45 32 C40 24 31 23 31 23 C33 29 38 32 45 33" fill="#1a7a52"/>
+      <path d="M45 32 C50 24 59 23 59 23 C57 29 52 32 45 33" fill="#1a7a52"/>
+      <path d="M45 29 C41 22 35 20 35 20 C37 25 40 28 45 30" fill="#239268"/>
+      <path d="M45 29 C49 22 55 20 55 20 C53 25 50 28 45 30" fill="#239268"/>
+      <path d="M45 35 C39 28 30 28 30 28 C34 33 39 35 45 36" fill="#1a7a52"/>
+      <path d="M45 35 C51 28 60 28 60 28 C56 33 51 35 45 36" fill="#1a7a52"/>
+      <path d="M28 56 Q45 64 62 56" stroke="#c5a253" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M30 52 L60 64" stroke="#c5a253" stroke-width="2" stroke-linecap="round"/>
+      <path d="M60 52 L30 64" stroke="#c5a253" stroke-width="2" stroke-linecap="round"/>
+      <text font-family="Cairo,sans-serif" font-size="4.2" fill="#1a7a52" font-weight="700"><textPath href="#pifArc" startOffset="50%" text-anchor="middle">صندوق الاستثمارات العامة</textPath></text>
+      <defs><path id="pifArc" d="M 14,45 A 31,31 0 0 1 76,45"/></defs>
+    </svg>
+    <span class="ft-pif-txt" data-ar>إحدى شركات الصندوق</span>
+    <span class="ft-pif-txt" data-en>A PIF Company</span>
+  </div>
+  <div>
+    <div class="ft-center-copy" data-ar>حقوق الطبع والنشر لشركة لين لخدمات الأعمال. كل الحقوق محفوظة © 2025</div>
+    <div class="ft-center-copy" data-en>© 2025 Lean Business Services. All rights reserved.</div>
+  </div>
+  <div class="ft-right">
+    <div class="ft-soc-icons">
+      <a class="ft-si" href="#" title="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a class="ft-si" href="#" title="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
+      <a class="ft-si" href="#" title="X" style="font-weight:800;font-size:1rem">𝕏</a>
+    </div>
+    <img src="https://lean.sa/images/LEAN-LOGO.svg" class="ft-lean" alt="Lean" onerror="this.src='https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/ivahp1h1ivw3qittkk9a'">
+  </div>
+</footer>
+</div>
+<div class="pg" id="p-prod">
+<div class="phero"><div style="position:relative;z-index:1">
+  <div class="lbl"><span data-ar>ابتكاراتنا</span><span data-en>Our Innovations</span></div>
+  <h1 class="hh1" style="animation:none;opacity:1;font-size:clamp(2.4rem,5vw,4.8rem)"><span data-ar>منتجاتنا</span><span data-en>Our Products</span></h1>
+  <div class="pfilt"><button class="pfb on"><span data-ar>الكل</span><span data-en>All</span></button><button class="pfb"><span data-ar>الرعاية الرقمية</span><span data-en>Digital Care</span></button><button class="pfb"><span data-ar>البيانات والذكاء الاصطناعي</span><span data-en>Data & AI</span></button></div>
+</div></div>
+<div class="pcards">
+  <div class="pcard rv"><div class="pimg"><img src="https://lean.sa/ar/images/6762eaf0738ed42c91f15aa4_Frame-1000019515-50.png" alt="رقيم" onerror="this.closest('.pimg').style.background='linear-gradient(135deg,var(--bg2),var(--bg3))';this.remove()"></div><div class="pbody"><div class="ecb" data-ar>نظام معلومات</div><div class="ecb" data-en>Health Info</div><div class="pname" data-ar>رقيم</div><div class="pname" data-en>Raqeem</div><div class="pdesc" data-ar>نظام معلومات صحي يسجّل المعلومات الطبية للمرضى لتحسين تجربة الممارسين الصحيين.</div><div class="pdesc" data-en>A health information system recording patient data to enhance practitioner experience.</div><a href="#" class="plink" data-ar>اقرأ المزيد ←</a><a href="#" class="plink" data-en>Read More ←</a></div></div>
+  <div class="pcard rv"><div class="pimg"><img src="https://lean.sa/ar/images/6762eaf0738ed42c91f15aa4_Frame-1000019515-32.png" alt="عينتي" onerror="this.closest('.pimg').style.background='linear-gradient(135deg,var(--bg2),var(--bg3))';this.remove()"></div><div class="pbody"><div class="ecb" data-ar>منصة سحابية</div><div class="ecb" data-en>Cloud Platform</div><div class="pname" data-ar>عينتي</div><div class="pname" data-en>Ayenati</div><div class="pdesc" data-ar>منصة سحابية تربط مقدمي الرعاية بمقدمي خدمات المختبرات وتدعم رؤية 2030.</div><div class="pdesc" data-en>Cloud platform connecting healthcare providers with labs, supporting Vision 2030.</div><a href="#" class="plink" data-ar>اقرأ المزيد ←</a><a href="#" class="plink" data-en>Read More ←</a></div></div>
+  <div class="pcard rv"><div class="pimg"><img src="https://lean.sa/ar/images/6762eaf0738ed42c91f15aa4_Frame-1000019515-36.png" alt="يمامة" onerror="this.closest('.pimg').style.background='linear-gradient(135deg,var(--bg2),var(--bg3))';this.remove()"></div><div class="pbody"><div class="ecb" data-ar>تحليل البيانات</div><div class="ecb" data-en>Data Analytics</div><div class="pname" data-ar>يمامة</div><div class="pname" data-en>Yamamah</div><div class="pdesc" data-ar>منصة تحليل بيانات متقدمة تقدم رؤية شاملة لصحة السكان.</div><div class="pdesc" data-en>Advanced analytics providing comprehensive population health insights.</div><a href="#" class="plink" data-ar>اقرأ المزيد ←</a><a href="#" class="plink" data-en>Read More ←</a></div></div>
+  <div class="pcard rv"><div class="pimg"><img src="https://lean.sa/ar/images/AXN.png" alt="آكسن" onerror="this.closest('.pimg').style.background='linear-gradient(135deg,var(--bg2),var(--bg3))';this.remove()"></div><div class="pbody"><div class="ecb" data-ar>سوق البيانات</div><div class="ecb" data-en>Data Marketplace</div><div class="pname" data-ar>آكسن</div><div class="pname" data-en>AXN</div><div class="pdesc" data-ar>سوق موحد يمكّن الشركات من اتخاذ قرارات قائمة على البيانات بتحليلات متقدمة.</div><div class="pdesc" data-en>A unified marketplace enabling data-driven decisions with advanced analytics.</div><a href="#" class="plink" data-ar>اقرأ المزيد ←</a><a href="#" class="plink" data-en>Read More ←</a></div></div>
+  <div class="pcard rv"><div class="pimg"><img src="https://lean.sa/ar/images/1a6b0148-a74c-4959-b357-57189b1fcbae.png" alt="جادة" onerror="this.closest('.pimg').style.background='linear-gradient(135deg,var(--bg2),var(--bg3))';this.remove()"></div><div class="pbody"><div class="ecb" data-ar>البحث العلمي</div><div class="ecb" data-en>Research</div><div class="pname" data-ar>جادة الأبحاث</div><div class="pname" data-en>Research Avenue</div><div class="pdesc" data-ar>تمكين البحث الصحي في المملكة من خلال وصول آمن للبيانات وتحليلها.</div><div class="pdesc" data-en>Enabling health research in KSA through secure data access and analytics.</div><a href="#" class="plink" data-ar>اقرأ المزيد ←</a><a href="#" class="plink" data-en>Read More ←</a></div></div>
+  <div class="pcard rv"><div class="pimg" style="display:flex;align-items:center;justify-content:center"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(191,170,255,.5)" stroke-width="1"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.44-4.54z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.44-4.54z"/></svg></div><div class="pbody"><div class="ecb">AI · NLP</div><div class="pname" data-ar>محرك المصطلحات</div><div class="pname" data-en>Terminology Engine</div><div class="pdesc" data-ar>نموذج تعلم آلي يصنّف النصوص إلى مصطلحات طبية معيارية باستخدام معالجة اللغة الطبيعية.</div><div class="pdesc" data-en>An ML model using NLP to classify text into standardized medical terminology.</div><a href="#" class="plink" data-ar>اقرأ المزيد ←</a><a href="#" class="plink" data-en>Read More ←</a></div></div>
+</div></div>
+<div class="pg" id="p-sol">
+<div class="phero"><div style="position:relative;z-index:1">
+  <div class="lbl"><span data-ar>ما نقدّمه</span><span data-en>What We Offer</span></div>
+  <h1 class="hh1" style="animation:none;opacity:1;font-size:clamp(2.4rem,5vw,4.8rem)"><span data-ar>حلولنا</span><span data-en>Our Solutions</span></h1>
+</div></div>
+<section class="s rv">
+  <div class="lbl"><span data-ar>حلولنا الرئيسية</span><span data-en>Core Solutions</span></div>
+  <h2 class="ttl" style="margin-bottom:3.5rem"><span data-ar>كل ما تحتاجه <span class="gt">في منظومة واحدة</span></span><span data-en>Everything <span class="gt">In One Ecosystem</span></span></h2>
+  <div class="sgrid">
+    <div class="sc"><div class="sico">📊</div><div class="st" data-ar>تكامل البيانات الصحية</div><div class="st" data-en>Health Data Integration</div><div class="sd" data-ar>ربط مصادر البيانات في منصة موحدة لدعم القرار بدقة عالية.</div><div class="sd" data-en>Connecting data sources in a unified platform for high-accuracy decisions.</div></div>
+    <div class="sc"><div class="sico">🤖</div><div class="st" data-ar>حلول الذكاء الاصطناعي</div><div class="st" data-en>AI Solutions</div><div class="sd" data-ar>تقنيات تتنبأ بالمخاطر الصحية من التشخيص المبكر للتوصيات المخصصة.</div><div class="sd" data-en>Tech predicting health risks from early diagnosis to personalized recommendations.</div></div>
+    <div class="sc"><div class="sico">🏥</div><div class="st" data-ar>التحوّل الرقمي للمنشآت</div><div class="st" data-en>Facility Transformation</div><div class="sd" data-ar>أتمتة الإجراءات التشغيلية من الترخيص إلى الكفاءة الكاملة.</div><div class="sd" data-en>Automating operations from licensing to full efficiency.</div></div>
+    <div class="sc"><div class="sico">🔬</div><div class="st" data-ar>علوم الحياة والصحة</div><div class="st" data-en>Health & Life Sciences</div><div class="sd" data-ar>ربط البيانات الوطنية بمنصات البحث لدعم الابتكار القائم على الأدلة.</div><div class="sd" data-en>Connecting national data with research for evidence-based innovation.</div></div>
+    <div class="sc"><div class="sico">📱</div><div class="st" data-ar>منصة الأفراد — صحتي</div><div class="st" data-en>Individual Platform — Sehhaty</div><div class="sd" data-ar>تمكين الأفراد من إدارة صحتهم استباقياً — مواعيد، مؤشرات، توأم رقمي.</div><div class="sd" data-en>Empowering individuals — appointments, monitoring, digital twin.</div></div>
+    <div class="sc"><div class="sico">👨‍⚕️</div><div class="st" data-ar>دعم الممارسين — أناة</div><div class="st" data-en>Practitioner Support — Anat</div><div class="sd" data-ar>منظومة شاملة للممارسين — خبير الصحة للممارسة المزدوجة والتأمين.</div><div class="sd" data-en>Complete system — dual practice expert and insurance.</div></div>
+  </div>
+</section></div>
+<div class="pg" id="p-about">
+<div class="phero"><div style="position:relative;z-index:1">
+  <div class="lbl"><span data-ar>من نحن</span><span data-en>Who We Are</span></div>
+  <h1 class="hh1" style="animation:none;opacity:1;font-size:clamp(2.4rem,5vw,4.8rem)"><span data-ar>عن لين</span><span data-en>About Lean</span></h1>
+  <p style="color:var(--txt2);margin-top:1rem;max-width:620px;line-height:1.95;font-size:.96rem"><span data-ar>شركة لين لخدمات الأعمال رائدةً في الابتكار الصحي الرقمي — إحدى شركات صندوق الاستثمارات العامة.</span><span data-en>Lean Business Services leads digital health innovation — a Public Investment Fund company.</span></p>
+</div></div>
+<section class="s salt rv">
+  <div class="lbl"><span data-ar>رحلتنا</span><span data-en>Our Journey</span></div>
+  <h2 class="ttl"><span data-ar>بدأنا <span class="gt">وما توقّفنا</span></span><span data-en>We Started <span class="gt">and Never Stopped</span></span></h2>
+  <div class="tl-wrap">
+    <div class="tli"><div class="tlc"><div class="tlp">2017–2018</div><div class="tlt" data-ar>البداية</div><div class="tlt" data-en>The Beginning</div><div class="tld2" data-ar>تأسيس لين برؤية لتكون المحرّك الأساسي في التحوّل الصحي الرقمي.</div><div class="tld2" data-en>Lean founded to lead digital health transformation.</div></div><div class="tld"><div class="tldot"></div></div><div></div></div>
+    <div class="tli"><div></div><div class="tld"><div class="tldot"></div></div><div class="tlc"><div class="tlp">2018–2019</div><div class="tlt" data-ar>التطوير</div><div class="tlt" data-en>Development</div><div class="tld2" data-ar>منصات وحلول وطنية ترفع كفاءة القطاع الصحي.</div><div class="tld2" data-en>National platforms raising healthcare efficiency.</div></div></div>
+    <div class="tli"><div class="tlc"><div class="tlp">2019–2020</div><div class="tlt" data-ar>التكامل</div><div class="tlt" data-en>Integration</div><div class="tld2" data-ar>الأنظمة أصبحت تتحدث لغة واحدة — دعم المرضى والممارسين والمنشآت.</div><div class="tld2" data-en>Systems speaking one language — supporting all.</div></div><div class="tld"><div class="tldot"></div></div><div></div></div>
+    <div class="tli"><div></div><div class="tld"><div class="tldot"></div></div><div class="tlc"><div class="tlp">2020–2021</div><div class="tlt" data-ar>المبادرة</div><div class="tlt" data-en>Initiative</div><div class="tld2" data-ar>حلول استباقية للتصدّي لكوفيد-19 ودعم القطاع الصحي.</div><div class="tld2" data-en>Proactive COVID-19 solutions supporting the sector.</div></div></div>
+    <div class="tli"><div class="tlc"><div class="tlp">2021–2024</div><div class="tlt" data-ar>التوسّع</div><div class="tlt" data-en>Expansion</div><div class="tld2" data-ar>آفاق جديدة وشراكات متجددة — ابتكار مستدام يرفع جاهزية القطاع عالمياً.</div><div class="tld2" data-en>New horizons — sustainable innovation raising global readiness.</div></div><div class="tld"><div class="tldot"></div></div><div></div></div>
+  </div>
+</section>
+<section class="s rv">
+  <div class="lbl"><span data-ar>قادة لين</span><span data-en>Lean Leaders</span></div>
+  <h2 class="ttl"><span data-ar>الفريق الذي <span class="gt">يقود التحوّل</span></span><span data-en>The Team <span class="gt">Leading the Change</span></span></h2>
+  <div class="team" style="margin-top:3.2rem">
+    <div class="tc"><div class="tc-img"><img src="https://lean.sa/ar/images/Frame-1261156514_1Frame-1261156514.png" alt="مهند" onerror="this.style.display='none'"></div><div class="tc-body"><div class="tc-name" data-ar>مهند الرشيد</div><div class="tc-name" data-en>Muhannad Al-Rashid</div><div class="tc-role" data-ar>الرئيس التنفيذي</div><div class="tc-role" data-en>CEO</div></div></div>
+    <div class="tc"><div class="tc-img"><img src="https://lean.sa/ar/images/Frame-1261156507.png" alt="فيصل" onerror="this.style.display='none'"></div><div class="tc-body"><div class="tc-name" data-ar>فيصل اليمني</div><div class="tc-name" data-en>Faisal Al-Yamani</div><div class="tc-role" data-ar>رئيس الخدمات المشتركة</div><div class="tc-role" data-en>Head of Shared Services</div></div></div>
+    <div class="tc"><div class="tc-img"><img src="https://lean.sa/ar/images/Frame-1261156511.png" alt="فهد" onerror="this.style.display='none'"></div><div class="tc-body"><div class="tc-name" data-ar>فهد السعوي</div><div class="tc-name" data-en>Fahad Al-Saawi</div><div class="tc-role" data-ar>كبير مدراء البيانات</div><div class="tc-role" data-en>Chief Data Officer</div></div></div>
+    <div class="tc"><div class="tc-img"><img src="https://lean.sa/ar/images/Frame-1261156509.png" alt="سعيد" onerror="this.style.display='none'"></div><div class="tc-body"><div class="tc-name" data-ar>سعيد الغامدي</div><div class="tc-name" data-en>Saeed Al-Ghamdi</div><div class="tc-role" data-ar>كبير مدراء التقنية</div><div class="tc-role" data-en>Chief IT Officer</div></div></div>
+    <div class="tc"><div class="tc-img"><img src="https://lean.sa/ar/images/Frame-1261156510.png" alt="ناصر" onerror="this.style.display='none'"></div><div class="tc-body"><div class="tc-name" data-ar>ناصر العنزي</div><div class="tc-name" data-en>Nasser Al-Anazi</div><div class="tc-role" data-ar>كبير مدراء الأعمال</div><div class="tc-role" data-en>Chief Business Officer</div></div></div>
+    <div class="tc"><div class="tc-img"><img src="https://lean.sa/ar/images/Frame-1261156512.png" alt="أحمد" onerror="this.style.display='none'"></div><div class="tc-body"><div class="tc-name" data-ar>أحمد العيسى</div><div class="tc-name" data-en>Ahmed Al-Issa</div><div class="tc-role" data-ar>رئيس المالية</div><div class="tc-role" data-en>CFO</div></div></div>
+    <div class="tc"><div class="tc-img"><img src="https://lean.sa/ar/images/Frame-1261156508.png" alt="خليل" onerror="this.style.display='none'"></div><div class="tc-body"><div class="tc-name" data-ar>خليل العبدالوهاب</div><div class="tc-name" data-en>Khalil Al-Abdulwahab</div><div class="tc-role" data-ar>رئيس القطاع التجاري</div><div class="tc-role" data-en>Head of Commercial</div></div></div>
+    <div class="tc"><div class="tc-img"><img src="https://lean.sa/ar/images/Frame-1261156513.png" alt="إبراهيم" onerror="this.style.display='none'"></div><div class="tc-body"><div class="tc-name" data-ar>إبراهيم القصير</div><div class="tc-name" data-en>Ibrahim Al-Qusair</div><div class="tc-role" data-ar>كبير مدراء القانونية</div><div class="tc-role" data-en>Chief Legal Officer</div></div></div>
+  </div>
+</section></div>
+<div class="pg" id="p-news">
+<div class="phero"><div style="position:relative;z-index:1">
+  <div class="lbl"><span data-ar>آخر المستجدات</span><span data-en>Latest Updates</span></div>
+  <h1 class="hh1" style="animation:none;opacity:1;font-size:clamp(2.4rem,5vw,4.8rem)"><span data-ar>الأخبار والمقالات</span><span data-en>News & Articles</span></h1>
+</div></div>
+<section class="s rv">
+  <div class="newsg">
+    <div class="nf"><div class="nfimg"><img src="https://lean.sa/ar/images/health-life-banner.png" alt="خبر" onerror="this.closest('.nfimg').style.background='linear-gradient(135deg,var(--bg2),var(--bg3))';this.remove()"></div><div class="nfb"><div class="ntag" data-ar>ابتكار</div><div class="ntag" data-en>Innovation</div><div class="nt" data-ar>لين تُطلق منصة متقدمة لتحليل البيانات الصحية بالذكاء الاصطناعي</div><div class="nt" data-en>Lean Launches AI-Powered Health Data Analytics Platform</div><div class="nex" data-ar>أعلنت لين عن إطلاق منصة تحليل بيانات تعتمد أحدث تقنيات الذكاء الاصطناعي لتحسين جودة القرارات الصحية.</div><div class="nex" data-en>Lean announced a data analytics platform leveraging AI to improve healthcare decisions.</div><div class="nd" data-ar>مايو 2025</div><div class="nd" data-en>May 2025</div></div></div>
+    <div class="nside">
+      <div class="ns"><div class="nsimg"><img src="https://lean.sa/ar/images/newborn.png" alt="خبر" onerror="this.closest('.nsimg').style.background='var(--bg2)';this.remove()"></div><div class="nsb"><div class="nst" data-ar>لين تدعم مبادرة التطعيم الوطني بمنظومتها الرقمية</div><div class="nst" data-en>Lean Supports National Vaccination Initiative</div><div class="nsd" data-ar>أبريل 2025</div><div class="nsd" data-en>April 2025</div></div></div>
+      <div class="ns"><div class="nsimg"><img src="https://lean.sa/ar/images/freepik__an-arab-man-in-his-20s-with-short-dark-hair-wearin__70836.png" alt="خبر" onerror="this.closest('.nsimg').style.background='var(--bg2)';this.remove()"></div><div class="nsb"><div class="nst" data-ar>شراكة استراتيجية لتعزيز التحول الرقمي الصحي</div><div class="nst" data-en>Strategic Partnership for Digital Health</div><div class="nsd" data-ar>مارس 2025</div><div class="nsd" data-en>March 2025</div></div></div>
+      <div class="ns"><div class="nsimg" style="background:linear-gradient(135deg,var(--bg2),var(--bg3))"></div><div class="nsb"><div class="nst" data-ar>لين تحقق 250 مليون عملية صحية رقمية</div><div class="nst" data-en>Lean Achieves 250M Digital Health Operations</div><div class="nsd" data-ar>فبراير 2025</div><div class="nsd" data-en>February 2025</div></div></div>
+    </div>
+  </div>
+</section></div>
+<div class="pg" id="p-contact">
+<div class="phero"><div style="position:relative;z-index:1">
+  <div class="lbl"><span data-ar>نحن هنا</span><span data-en>We're Here</span></div>
+  <h1 class="hh1" style="animation:none;opacity:1;font-size:clamp(2.4rem,5vw,4.8rem)"><span data-ar>تواصل معنا</span><span data-en>Contact Us</span></h1>
+</div></div>
+<section class="s rv">
+  <div class="cgrid">
+    <div>
+      <div class="lbl"><span data-ar>معلومات التواصل</span><span data-en>Contact Information</span></div>
+      <h2 class="ttl" style="font-size:1.9rem;margin-bottom:2rem"><span data-ar>لنبدأ <span class="gt">الرحلة معاً</span></span><span data-en>Let's Begin <span class="gt">Together</span></span></h2>
+      <div class="ciw"><div class="cico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="cilbl" data-ar>العنوان</div><div class="cilbl" data-en>Address</div><div class="cival" data-ar>الرياض، المملكة العربية السعودية</div><div class="cival" data-en>Riyadh, Saudi Arabia</div></div></div>
+      <div class="ciw"><div class="cico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="cilbl" data-ar>البريد الإلكتروني</div><div class="cilbl" data-en>Email</div><div class="cival">info@lean.sa</div></div></div>
+      <div class="ciw"><div class="cico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="cilbl" data-ar>الموقع</div><div class="cilbl" data-en>Website</div><div class="cival">lean.sa</div></div></div>
+    </div>
+    <div>
+      <div class="lbl"><span data-ar>احجز عرضاً</span><span data-en>Book a Demo</span></div>
+      <h2 class="ttl" style="font-size:1.9rem;margin-bottom:2rem"><span data-ar>أرسل <span class="gt">رسالتك</span></span><span data-en>Send Your <span class="gt">Message</span></span></h2>
+      <div class="fg"><label class="fl" data-ar>الاسم الكامل</label><label class="fl" data-en>Full Name</label><input class="fi" id="fn" type="text"></div>
+      <div class="fg"><label class="fl" data-ar>البريد الإلكتروني</label><label class="fl" data-en>Email</label><input class="fi" type="email" placeholder="email@example.com" dir="ltr"></div>
+      <div class="fg"><label class="fl" data-ar>المنشأة</label><label class="fl" data-en>Organization</label><input class="fi" id="fo" type="text"></div>
+      <div class="fg"><label class="fl" data-ar>رسالتك</label><label class="fl" data-en>Your Message</label><textarea class="fi" id="fm"></textarea></div>
+      <button class="bp" style="width:100%;font-size:.9rem;padding:.95rem"><span data-ar>إرسال الطلب ←</span><span data-en>Send Request ←</span></button>
+    </div>
+  </div>
+</section></div>
+<script>
+const C1=document.getElementById('C1'),C2=document.getElementById('C2');
+let mx=0,my=0,fx=0,fy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;C1.style.left=mx+'px';C1.style.top=my+'px'});
+(function loop(){fx+=(mx-fx)*.1;fy+=(my-fy)*.1;C2.style.left=fx+'px';C2.style.top=fy+'px';requestAnimationFrame(loop)})();
+function bindHover(){document.querySelectorAll('a,button,.pc,.ec,.ic,.pcard,.tc,.sc,.nf,.ns,.jc,.tlc,.phi,.region-path,.ai-ex,.csug,.partner-card').forEach(el=>{el.onmouseenter=()=>document.body.classList.add('hov');el.onmouseleave=()=>document.body.classList.remove('hov')})}
+bindHover();
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('on',scrollY>50));
+const html=document.documentElement;
+document.getElementById('themeBtn').addEventListener('click',()=>{
+  const d=html.dataset.theme==='dark';
+  html.dataset.theme=d?'light':'dark';
+  document.getElementById('moonI').classList.toggle('on',!d);
+  document.getElementById('sunI').classList.toggle('on',d);
+});
+let isAr=true;
+function setLang(ar){
+  isAr=ar;html.lang=ar?'ar':'en';html.dir=ar?'rtl':'ltr';html.dataset.lang=ar?'ar':'en';
+  document.getElementById('langBtn').textContent=ar?'EN':'AR';
+  const fn=document.getElementById('fn'),fo=document.getElementById('fo'),fm=document.getElementById('fm');
+  if(fn)fn.placeholder=ar?'اسمك الكريم':'Your full name';
+  if(fo)fo.placeholder=ar?'اسم منشأتك':'Your organization';
+  if(fm)fm.placeholder=ar?'كيف يمكننا مساعدتك؟':'How can we help?';
+  document.getElementById('chatInput').placeholder=ar?'اكتب سؤالك...':'Ask a question...';
+  const ai=document.getElementById('aiInput');
+  if(ai)ai.placeholder=ar?ai.dataset.arPh:ai.dataset.enPh;
+  showRegionData(currentRegion);
+}
+document.getElementById('langBtn').addEventListener('click',()=>setLang(!isAr));
+const PAGES=['home','prod','sol','about','news','contact'];
+function go(id){
+  PAGES.forEach(p=>{document.getElementById('p-'+p)?.classList.remove('on');document.getElementById('db-'+p)?.classList.remove('on')});
+  document.querySelectorAll('.nlinks a').forEach(a=>a.classList.remove('on'));
+  document.getElementById('p-'+id)?.classList.add('on');
+  document.getElementById('db-'+id)?.classList.add('on');
+  document.querySelector(`.nlinks a[data-p="${id}"]`)?.classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>{reveal();bindHover()},80);
+}
+function reveal(){
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}});},{threshold:.1});
+  document.querySelectorAll('.rv:not(.vis),.ji:not(.vis),.tli:not(.vis)').forEach(el=>obs.observe(el));
+}
+reveal();
+window.addEventListener('scroll',()=>{
+  const s=scrollY;
+  document.querySelector('.o1')?.style.setProperty('transform',`translateY(${s*.08}px)`);
+  document.querySelector('.o2')?.style.setProperty('transform',`translateY(${-s*.06}px)`);
+});
+document.querySelectorAll('.pfb').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.pfb').forEach(x=>x.classList.remove('on'));b.classList.add('on')})});
+
+/* ═══ INTERACTIVE IMPACT MAP (not realtime) ═══ */
+const regionData={
+  riyadh:{ar:{n:'منطقة الرياض',num:'+42م',lbl:'عملية صحية رقمية في المنطقة',fac:'1,240+',prac:'38K+'},en:{n:'Riyadh Region',num:'+42M',lbl:'digital health operations in the region',fac:'1,240+',prac:'38K+'}},
+  makkah:{ar:{n:'منطقة مكة المكرمة',num:'+38م',lbl:'عملية صحية رقمية في المنطقة',fac:'1,080+',prac:'32K+'},en:{n:'Makkah Region',num:'+38M',lbl:'digital health operations in the region',fac:'1,080+',prac:'32K+'}},
+  eastern:{ar:{n:'المنطقة الشرقية',num:'+28م',lbl:'عملية صحية رقمية في المنطقة',fac:'860+',prac:'24K+'},en:{n:'Eastern Province',num:'+28M',lbl:'digital health operations in the region',fac:'860+',prac:'24K+'}},
+  madinah:{ar:{n:'منطقة المدينة المنورة',num:'+18م',lbl:'عملية صحية رقمية في المنطقة',fac:'540+',prac:'15K+'},en:{n:'Madinah Region',num:'+18M',lbl:'digital health operations in the region',fac:'540+',prac:'15K+'}},
+  qassim:{ar:{n:'منطقة القصيم',num:'+11م',lbl:'عملية صحية رقمية في المنطقة',fac:'320+',prac:'9K+'},en:{n:'Qassim Region',num:'+11M',lbl:'digital health operations in the region',fac:'320+',prac:'9K+'}},
+  aseer:{ar:{n:'منطقة عسير',num:'+14م',lbl:'عملية صحية رقمية في المنطقة',fac:'410+',prac:'12K+'},en:{n:'Aseer Region',num:'+14M',lbl:'digital health operations in the region',fac:'410+',prac:'12K+'}},
+  tabuk:{ar:{n:'منطقة تبوك',num:'+9م',lbl:'عملية صحية رقمية في المنطقة',fac:'240+',prac:'7K+'},en:{n:'Tabuk Region',num:'+9M',lbl:'digital health operations in the region',fac:'240+',prac:'7K+'}},
+  jouf:{ar:{n:'منطقة الجوف',num:'+5م',lbl:'عملية صحية رقمية في المنطقة',fac:'130+',prac:'4K+'},en:{n:'Al-Jouf Region',num:'+5M',lbl:'digital health operations in the region',fac:'130+',prac:'4K+'}},
+  hail:{ar:{n:'منطقة حائل',num:'+6م',lbl:'عملية صحية رقمية في المنطقة',fac:'170+',prac:'5K+'},en:{n:'Hail Region',num:'+6M',lbl:'digital health operations in the region',fac:'170+',prac:'5K+'}},
+  baha:{ar:{n:'منطقة الباحة',num:'+4م',lbl:'عملية صحية رقمية في المنطقة',fac:'95+',prac:'3K+'},en:{n:'Al-Baha Region',num:'+4M',lbl:'digital health operations in the region',fac:'95+',prac:'3K+'}},
+  najran:{ar:{n:'منطقة نجران',num:'+5م',lbl:'عملية صحية رقمية في المنطقة',fac:'120+',prac:'4K+'},en:{n:'Najran Region',num:'+5M',lbl:'digital health operations in the region',fac:'120+',prac:'4K+'}},
+  jizan:{ar:{n:'منطقة جازان',num:'+7م',lbl:'عملية صحية رقمية في المنطقة',fac:'210+',prac:'6K+'},en:{n:'Jizan Region',num:'+7M',lbl:'digital health operations in the region',fac:'210+',prac:'6K+'}}
+};
+let currentRegion='riyadh';
+function showRegionData(r){
+  const d=regionData[r];if(!d)return;
+  const data=isAr?d.ar:d.en;
+  const elN=document.getElementById('regName'),elNum=document.getElementById('regNum'),elL=document.getElementById('regLabel'),elF=document.getElementById('regFac'),elP=document.getElementById('regPrac');
+  if(!elN)return;
+  [elN,elNum,elL].forEach(e=>e.style.opacity='0');
+  setTimeout(()=>{
+    elN.textContent=data.n;elNum.textContent=data.num;elL.textContent=data.lbl;elF.textContent=data.fac;elP.textContent=data.prac;
+    [elN,elNum,elL].forEach(e=>e.style.opacity='1');
+  },150);
+}
+function showRegion(r,el){
+  currentRegion=r;
+  document.querySelectorAll('.region-path').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  showRegionData(r);
+}
+
+/* ═══ AI CHAT ═══ */
+const chatPanel=document.getElementById('chatPanel');
+document.getElementById('chatBtn').addEventListener('click',()=>chatPanel.classList.toggle('open'));
+document.getElementById('chatClose').addEventListener('click',()=>chatPanel.classList.remove('open'));
+const KB={
+  ar:{
+    'منتج':['تلقى جميع منتجاتنا في صفحة «المنتجات» من القائمة العلوية، أو من قسم «منتجاتنا الرائدة» في الصفحة الرئيسية. 📦'],
+    'صحتي':['صحتي تحت قسم «منتجاتنا الرائدة» للأفراد. تقدر تشوف تفاصيلها من صفحة المنتجات. 🏥'],
+    'صحة':['صحة موجودة في قسم المنتجات (للمنشآت). افتح صفحة «المنتجات» من القائمة. 🏢'],
+    'أناة':['أناة في قسم المنتجات (للممارسين). تلقاها بصفحة «المنتجات». 👨‍⚕️'],
+    'تواصل':['تقدر تتواصل معنا من صفحة «تواصل معنا» في القائمة، أو على البريد info@lean.sa 📧'],
+    'عرض':['لحجز عرض تجريبي، افتح صفحة «تواصل معنا» واملأ النموذج، أو راسلنا على info@lean.sa 📧'],
+    'وظيف':['للوظائف، تابع صفحة «الوظائف» من القائمة العلوية. 💼'],
+    'حلول':['تلقى حلولنا في صفحة «الحلول» من القائمة — تكامل بيانات، ذكاء اصطناعي، وتحوّل رقمي. 🧩'],
+    'خبر':['آخر الأخبار والمقالات في صفحة «الأخبار والمقالات» من القائمة. 📰'],
+    'مرشد':['جرّب «المرشد الذكي للخدمات» في الصفحة الرئيسية — يوجهك للمنتج الأنسب حسب نوعك واحتياجك. 🧭'],
+    'لغة':['تقدر تبدّل اللغة بين العربية والإنجليزية من زر «EN/AR» أعلى يسار الصفحة. 🌐'],
+    'وضع':['تقدر تبدّل بين الوضع الليلي والنهاري من زر الشمس/القمر أعلى الصفحة. 🌗'],
+    'default':['أنا مساعد التنقل — أقدر أساعدك توصل للمنتجات، الحلول، الأخبار، الوظائف، أو صفحة التواصل. وش تدوّر عليه؟ 🧭']
+  },
+  en:{
+    'product':['Find all our products on the «Products» page in the top menu, or in the «Leading Products» section on the homepage. 📦'],
+    'sehhaty':['Sehhaty is under «Leading Products» (for individuals). See details on the Products page. 🏥'],
+    'seha':['Seha is in the Products section (for facilities). Open the «Products» page. 🏢'],
+    'anat':['Anat is in the Products section (for practitioners). Find it on the «Products» page. 👨‍⚕️'],
+    'contact':['You can reach us via the «Contact Us» page in the menu, or at info@lean.sa 📧'],
+    'demo':['To book a demo, open «Contact Us» and fill the form, or email info@lean.sa 📧'],
+    'career':['For careers, check the «Careers» page in the top menu. 💼'],
+    'solution':['Find our solutions on the «Solutions» page — data integration, AI, and digital transformation. 🧩'],
+    'news':['Latest news and articles are on the «News & Articles» page. 📰'],
+    'navigat':['Try the «Smart Service Navigator» on the homepage — it guides you to the right product by your type and need. 🧭'],
+    'languag':['Switch between Arabic and English using the «EN/AR» button at the top left. 🌐'],
+    'mode':['Toggle dark/light mode using the sun/moon button at the top. 🌗'],
+    'default':['I\'m the navigation assistant — I can help you reach products, solutions, news, careers, or contact. What are you looking for? 🧭']
+  }
+};
+function getBotResp(msg){const k=isAr?KB.ar:KB.en;const low=msg.toLowerCase();for(const key of Object.keys(k).filter(x=>x!=='default')){if(low.includes(key))return k[key][0]}return k.default[0]}
+function addMsg(txt,role){const el=document.createElement('div');el.className=`cmsg ${role}`;el.textContent=txt;const m=document.getElementById('chatMsgs');m.appendChild(el);m.scrollTop=99999}
+function sendChat(){const inp=document.getElementById('chatInput');const msg=inp.value.trim();if(!msg)return;addMsg(msg,'user');inp.value='';document.getElementById('chatSugs').style.display='none';const t=document.createElement('div');t.className='cmsg typing';t.textContent='•••';document.getElementById('chatMsgs').appendChild(t);document.getElementById('chatMsgs').scrollTop=99999;setTimeout(()=>{t.remove();addMsg(getBotResp(msg),'bot')},800+Math.random()*500)}
+function sendSug(el){document.getElementById('chatInput').value=el.textContent;sendChat()}
+document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
+
+/* ═══ AI SYMPTOM/NEED ANALYZER — real AI with smart fallback ═══ */
+function fillAi(el){document.getElementById('aiInput').value=el.textContent;}
+const productMap={
+  sehhaty:{ar:{name:'صحتي',desc:'منصة الأفراد للرعاية الصحية',icon:'🏥'},en:{name:'Sehhaty',desc:'Individual healthcare platform',icon:'🏥'}},
+  seha:{ar:{name:'صحة',desc:'أتمتة الإجراءات الصحية للمنشآت',icon:'🏢'},en:{name:'Seha',desc:'Facility procedures automation',icon:'🏢'}},
+  anat:{ar:{name:'أناة',desc:'المنصة الموحدة للممارسين',icon:'👨‍⚕️'},en:{name:'Anat',desc:'Unified practitioner platform',icon:'👨‍⚕️'}},
+  yamamah:{ar:{name:'يمامة',desc:'تحليل بيانات صحة السكان',icon:'📊'},en:{name:'Yamamah',desc:'Population health analytics',icon:'📊'}},
+  raqeem:{ar:{name:'رقيم',desc:'نظام المعلومات الصحية',icon:'📋'},en:{name:'Raqeem',desc:'Health information system',icon:'📋'}},
+  ayenati:{ar:{name:'عينتي',desc:'منصة المختبرات السحابية',icon:'🔬'},en:{name:'عينتي',desc:'Cloud laboratory platform',icon:'🔬'}}
+};
+function smartLocalAnalyze(text){
+  const t=text.toLowerCase();
+  let product='sehhaty',reason_ar='',reason_en='';
+  if(/طبيب|ممارس|دكتور|عيادت|doctor|practitioner|physician|dual|مزدوج/.test(t)){product='anat';reason_ar='باعتبارك ممارساً صحياً، منصة أناة هي الأنسب لك — المنصة الموحدة التي تجمع خدمات الممارسة المزدوجة، الفعاليات الطبية، والتأمين في مكان واحد.';reason_en='As a practitioner, Anat is the right fit — the unified platform bringing together dual-practice services, medical events, and insurance.';}
+  else if(/مستشفى|منشأة|منشأت|ترخيص|عيادة|hospital|facility|clinic|licens|أتمت|automat|إجراء/.test(t)){product='seha';reason_ar='بما أنك تدير منشأة، منصة صحة هي الخيار الأمثل — تتيح أتمتة الإجراءات من التراخيص والفحوصات والشهادات لرفع كفاءة منشأتك.';reason_en='Since you manage a facility, Seha is the optimal choice — automating procedures from licensing to screenings and certificates.';}
+  else if(/بيانات|تحليل|سكان|data|analy|population|insight|إحصا|تقارير|report/.test(t)){product='yamamah';reason_ar='احتياجك يتعلق بالبيانات والتقارير. منصة يمامة توفر تحليلات متقدمة ورؤى شاملة تدعم اتخاذ قراراتك.';reason_en='Your need relates to data and reports. Yamamah provides advanced analytics and comprehensive insights.';}
+  else if(/مختبر|عينة|فحص مخبري|lab|sample|specimen/.test(t)){product='ayenati';reason_ar='لاحتياجات المختبرات، منصة عينتي تربط مقدمي الرعاية بخدمات المختبرات بكفاءة عالية.';reason_en='For laboratory needs, Ayenati connects providers with lab services efficiently.';}
+  else{product='sehhaty';reason_ar='باعتبارك فرداً، منصة صحتي هي الأنسب لك — تجمع خدماتك في مكان واحد: حجز المواعيد، إدارة خدماتك، والوصول لتقاريرك بسهولة.';reason_en='As an individual, Sehhaty is the right fit — bringing your services together: appointments, service management, and easy access to reports.';}
+  return{product,reason:isAr?reason_ar:reason_en};
+}
+async function analyzeAi(){
+  const input=document.getElementById('aiInput');
+  const text=input.value.trim();
+  const btn=document.getElementById('aiBtn');
+  const result=document.getElementById('aiResult');
+  if(!text){input.focus();return}
+  btn.disabled=true;
+  result.className='ai-result show';
+  result.innerHTML='<div class="ai-loading"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>';
+  let analysis=null;
+  // Try real Anthropic AI first (works inside Claude.ai artifacts)
+  try{
+    const sys=isAr
+      ? 'أنت مرشد ذكي لخدمات شركة لين لخدمات الأعمال السعودية. مهمتك توجيه المستخدم للمنتج الأنسب حسب نوعه (فرد/منشأة/ممارس) واحتياجه دون أي تشخيص أو نصيحة صحية. منتجات لين: صحتي (للأفراد: إدارة المواعيد والخدمات والتقارير)، صحة (للمنشآت: أتمتة التراخيص والإجراءات والشهادات)، أناة (للممارسين: المنصة الموحدة للممارسة المزدوجة والتأمين)، يمامة (تحليل البيانات والتقارير)، رقيم (نظام المعلومات)، عينتي (المختبرات). وجّه المستخدم بإيجاز في جملتين للمنتج الأنسب. أرجع JSON فقط: {"reason":"...","product":"sehhaty|seha|anat|yamamah|raqeem|ayenati"}'
+      : 'You are a smart SERVICE navigator for Lean Business Services (Saudi). Guide the user to the right product based on who they are (individual/facility/practitioner) and their need, with NO medical diagnosis or health advice. Lean products: Sehhaty (individuals: managing appointments, services, reports), Seha (facilities: automating licensing, procedures, certificates), Anat (practitioners: unified platform for dual practice and insurance), Yamamah (data analytics and reports), Raqeem (information system), Ayenati (labs). Guide briefly in two sentences to the best product. Return ONLY JSON: {"reason":"...","product":"sehhaty|seha|anat|yamamah|raqeem|ayenati"}';
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,messages:[{role:'user',content:sys+'\n\nطلب المستخدم / User request: '+text}]})
+    });
+    const data=await resp.json();
+    const raw=data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+    const parsed=JSON.parse(raw);
+    if(parsed.reason&&parsed.product)analysis=parsed;
+  }catch(e){analysis=null}
+  // Fallback to smart local logic
+  if(!analysis)analysis=smartLocalAnalyze(text);
+  const pm=productMap[analysis.product]||productMap.sehhaty;
+  const pd=isAr?pm.ar:pm.en;
+  const headTxt=isAr?'الخدمة المناسبة لك':'Your Recommended Service';
+  const recTxt=isAr?'المنتج المُوصى به':'Recommended product';
+  result.innerHTML=`
+    <div class="ai-result-head"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>${headTxt}</div>
+    <div class="ai-result-text">${analysis.reason}</div>
+    <div class="ai-result-product">
+      <div class="ai-rp-icon">${pd.icon}</div>
+      <div style="flex:1"><div class="ai-rp-name">${recTxt}: ${pd.name}</div><div class="ai-rp-desc">${pd.desc}</div></div>
+    </div>`;
+  btn.disabled=false;
+}
+setLang(true);
+</script>
+</body>
+</html>
